@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SSCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xac-Uf-9sU">
+                        <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRo-vm-KKi">
+                        <rect key="frame" x="15" y="168" width="35" height="15"/>
+                        <color key="backgroundColor" red="0.0" green="0.79964232444763184" blue="0.89707452058792114" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="ua0-qD-JEd"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="34" image="钻石"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Athena" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cp7-oC-DDs">
+                        <rect key="frame" x="15" y="15" width="95" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="直播" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-EE-EWl">
+                        <rect key="frame" x="120" y="15" width="60" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="GMG-3E-8E7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="athena+柚子小天使" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opC-Dr-szT">
+                        <rect key="frame" x="15" y="148" width="155" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1129人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQI-bT-ATo">
+                        <rect key="frame" x="125.5" y="168" width="44.5" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="cp7-oC-DDs" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="0ir-6v-Qqn"/>
+                <constraint firstAttribute="trailing" secondItem="xac-Uf-9sU" secondAttribute="trailing" id="5CJ-ie-NJt"/>
+                <constraint firstItem="YRo-vm-KKi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="A0P-1T-hoh"/>
+                <constraint firstItem="xac-Uf-9sU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="EQc-Fp-nPF"/>
+                <constraint firstAttribute="bottom" secondItem="xac-Uf-9sU" secondAttribute="bottom" id="HLw-s6-WfC"/>
+                <constraint firstItem="KQI-bT-ATo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YRo-vm-KKi" secondAttribute="trailing" constant="20" id="POM-zq-fmz"/>
+                <constraint firstItem="YdA-EE-EWl" firstAttribute="leading" secondItem="cp7-oC-DDs" secondAttribute="trailing" constant="10" id="T9p-Ef-wj4"/>
+                <constraint firstItem="opC-Dr-szT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="TL8-ZR-Uy9"/>
+                <constraint firstItem="YRo-vm-KKi" firstAttribute="top" secondItem="opC-Dr-szT" secondAttribute="bottom" constant="2.5" id="UJp-E8-diH"/>
+                <constraint firstItem="KQI-bT-ATo" firstAttribute="top" secondItem="opC-Dr-szT" secondAttribute="bottom" constant="2.5" id="UrE-K1-ix8"/>
+                <constraint firstAttribute="bottom" secondItem="KQI-bT-ATo" secondAttribute="bottom" constant="2.5" id="W6y-K5-zJ5"/>
+                <constraint firstItem="cp7-oC-DDs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="mq0-cC-FbC"/>
+                <constraint firstAttribute="trailing" secondItem="YdA-EE-EWl" secondAttribute="trailing" constant="5" id="mvr-Qc-8t5"/>
+                <constraint firstItem="YdA-EE-EWl" firstAttribute="centerY" secondItem="cp7-oC-DDs" secondAttribute="centerY" id="oiQ-dc-KEF"/>
+                <constraint firstAttribute="trailing" secondItem="KQI-bT-ATo" secondAttribute="trailing" constant="15" id="owH-tv-MbL"/>
+                <constraint firstAttribute="bottom" secondItem="YRo-vm-KKi" secondAttribute="bottom" constant="2.5" id="qdm-Xo-kYD"/>
+                <constraint firstItem="xac-Uf-9sU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tsU-OO-NrN"/>
+                <constraint firstAttribute="bottom" secondItem="opC-Dr-szT" secondAttribute="bottom" constant="20" id="uju-ix-PU5"/>
+                <constraint firstAttribute="trailing" secondItem="opC-Dr-szT" secondAttribute="trailing" constant="15" id="wTm-3m-ZQD"/>
+            </constraints>
+            <connections>
+                <outlet property="defineButton" destination="YRo-vm-KKi" id="aW8-Do-ccX"/>
+                <outlet property="liveLabel" destination="YdA-EE-EWl" id="GtM-lI-Liy"/>
+                <outlet property="mainImageView" destination="xac-Uf-9sU" id="LIO-y9-8vn"/>
+                <outlet property="nameLabel" destination="cp7-oC-DDs" id="9Is-CL-KQ6"/>
+                <outlet property="numberLabel" destination="KQI-bT-ATo" id="GYR-TH-363"/>
+                <outlet property="titleLabel" destination="opC-Dr-szT" id="eNV-ot-1S1"/>
+            </connections>
+            <point key="canvasLocation" x="3" y="-26"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="钻石" width="16" height="16"/>
+    </resources>
+</document>

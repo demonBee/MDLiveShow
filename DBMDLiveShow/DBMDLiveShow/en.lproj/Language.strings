@@ -1,0 +1,214 @@
+/* 
+  Language.strings
+  DBMDLiveShow
+
+  Created by 黄佳峰 on 2017/5/8.
+  Copyright © 2017年 黄蜂大魔王. All rights reserved.
+*/
+
+//-----------------------------   English
+
+/*
+ Language.strings
+ DBMDLiveShow
+ 
+ Created by 黄佳峰 on 2017/5/8.
+ Copyright © 2017年 黄蜂大魔王. All rights reserved.
+ */
+
+//-----------------------------   中文
+
+//工具
+
+"L取消"="cancel";
+"L确定"="confirm";
+"L错误"="error";
+"L选中"="selected";
+"L未选中"="unselected";
+"L很遗憾！暂无数据"="I regret!Temporarily no data";
+"L重新加载"="reload";
+
+
+
+//appDelegate
+"L当前网络状态未知"="network unknown";
+"L无网络状态"="No network";
+"L当前正在使用流量"="currently phone flow";
+"LWiFi网络"="WiFi network";
+"L无房间名"="no room name";
+"L从相册中选择"="select from album";
+"L拍照"="photograph";
+"L点击进入"="enter";
+
+
+
+//tabBar
+"L旅游"="travel";
+"L试播"="trial live";
+"L排名"="ranking";
+"L我的"="personal setting";
+"L登录"="login";
+"L获取验证码"="Get verification code";
+"L请正确输入手机号码"="please input correct mobile phone number";
+"L手机号或验证码有误"="phone number or verification code error";
+"L退出登录"="exit login";
+"LID号"="NO:ID";
+"L个人资料"="personal Info";
+"L清理缓存"="clean cache";
+"L关于我们"="about us";
+"L切换语言"="switch the language";
+"L订单号：%@"="order number：%@";
+"L头像"="head portrait";
+"L昵称"="nickname";
+"L性别"="gender";
+"L年龄"="age";
+"L个性签名"="personalized signature";
+"L手机号"="phone number";
+"L选择错误"="selection error";
+"L剩余珍珠"="remaining pearl";
+"L选择金额充值"="select recharge amount";
+"L支付程序错误"="payment program error";
+"L请输入房间名"="Please input room name";
+"L请输入城市名"="Please input city name";
+"L是否开启录播功能"="start the recording";
+"L开始直播"="Start live streaming";
+"L网络延迟，请稍等"="Network delay, please wait";
+"L还没有获取到 streamURL 不能推流哦"="Have not been able to get to the streamURL";
+"L知道啦"="Ok";
+"L去直播"="Go live";
+"L去认证"="authentication";
+"L推流失败了"="Push flow failed";
+"L%@的直播间"="%@ 'sLive Room";
+"L电话号码"="Phone number";
+"L保存"="save";
+"L请输入正确的名字"="Please enter the correct name";
+"L手机号码输入错误"="Phone number input error";
+
+
+
+//首页
+"L跳过%d"="skip %d";
+"L活动"="activity";
+"L房间号:%@"="room number:%@";
+"L主播名字"="host name";
+"L获取友盟的open_id失败"="Open_id failed to get UM";
+"L搜索结果"="search result";
+"L未直播"="off line";
+"L直播中"="broadcasting";
+"L房间号:%@"="live room number:%@";
+"L猩球"="star";
+"L关注:%@"="follow:%@";
+"L粉丝:%@"="fans:%@";
+"L消费:%@"="consumption:%@";
+"L收益:%@"="Profit:%@";
+"L关注"="follow";
+"L取关"="unfollow";
+"L精彩回放"="Highlights";
+"L我的录像"="My video";
+"L反馈"="feedback";
+"L还需输入%ld个字,才能提交"="Need to write %ld words to submit";
+"L可以提交"="submit";
+"L您的反馈字数不足"="Your feedback is not enough";
+"L粉丝"="fans";
+"L已关注"="followed";
+"L取消关注"="unfollowed";
+"L%@ %@珍珠"="%@ %@pearl";
+"L余额：%@珍珠"="balance：%@pearl";
+"L礼物最多显示6个"="maxium 6 presents can be displayed";
+"L来源：%@"="source：%@";
+"L+%@珍珠"="+%@pearl";
+"L等级"="level";
+
+
+
+//直播
+"L获取聊天室失败"="failed to get chatroom";
+"L关闭直播"="close live";
+"L确定要关闭直播？"="confirm to close live streaming?";
+"L已开启静音"="Mute on";
+"L已关闭静音"="Mute off";
+"L用户等级：LV%@"="User level：LV%@";
+"L累计经验：%@"="experience：%@";
+"L距离升级还差：%@"="to upgrade：%@";
+"L主播等级：LV%@"="host level：LV%@";
+"L累计经验：%@"="total EX：%@";
+"L直播间号：%@"="room number：%@";
+"L%@ 送给主播--%@"="%@ give host--%@";
+"L%@关注了主播"="%@followed anchor";
+"L%@加入了聊天室"="%@ john chatRoom";
+"L底部有新消息"="New news at the bottom";
+"L静音"="mute";
+"L翻转镜头"="turn Camera";
+"L镜头缩放"="scale Camera";
+"L美颜"="beauty";
+"L没有标题?"="no title?";
+"L全部"="totail";
+"L热门"="hot";
+"L回放"="playback";
+"L"="";
+"L"="";
+"L"="";
+"L"="";
+"L"="";
+
+
+
+//个人中心
+
+"L%@粉丝"="%@fans";
+"L货币"="currency";
+"L实名认证"="Real name";
+"L姓名输入有误"="Name input error";
+"L身份证输入有误"="ID card input error";
+"L手机号输入有误"="phone number input error";
+"L请上传正面图"="upload the front image";
+"L请上传反面图"="upload the back image";
+"L举报"="report";
+"L选择举报原因"="select the reason for reporting";
+"L确认举报"="confirm report";
+"L请先选择举报类型"="select the type of report";
+"L色情暴力"="Erotic violence";
+"L政治敏感"="Political sensitivity";
+"L侵犯版权"="infringement of copyright";
+"L广告传销"="Pyramid selling";
+"L其他"="others";
+"L修改资料"="change info";
+"L消费"="consumption";
+"L直播收益"="my gift";
+"L等级"="level";
+"L充值"="recharge";
+"L反馈"="feedback";
+"L设置"="setting";
+"L充值记录"="recharge record";
+"L我的回放"="my replay";
+"L土豪榜"="richer list";
+"L主播榜"="host list";
+"L日榜"="daily";
+"L周榜"="Weekly";
+"L月榜"="monthly";
+"L总榜"="total";
+"L今天"="today";
+"L昨天"="yesterday";
+"L本月"="this month";
+"L上月"="last month";
+"L赠送给：%@"="Given to：%@";
+"L-%@珍珠"="-%@pearl";
+"L当前总计(珍珠)"="The current total(pearl)";
+
+
+"L消费：%@"="consumption：%@";
+"L收礼：%@"="receive：%@";
+"L英文"="English";
+"L中文"="Chinese";
+"L当前语言--%@"="current language--%@";
+"L清理成功"="cache cleared";
+"L是否需要切换到%@"="switch to %@ or not";
+"L切换语言"="switch language";
+"L直播时长(h)"="living long(h)";
+"L消费记录"="Records of consumption";
+"L男"="male";
+"L女"="female";
+
+
+
+

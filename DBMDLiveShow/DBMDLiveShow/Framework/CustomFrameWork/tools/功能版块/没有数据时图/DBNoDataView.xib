@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DBNoDataView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="捂脸.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Cd7-sK-Bdm">
+                    <rect key="frame" x="87.5" y="133.5" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="YXQ-uE-vw6"/>
+                        <constraint firstAttribute="width" secondItem="Cd7-sK-Bdm" secondAttribute="height" multiplier="1:1" id="tdS-iJ-MQp"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="很遗憾！暂无数据" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsb-CR-jYc">
+                    <rect key="frame" x="30" y="363.5" width="315" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.66659259800000004" green="0.66670930390000005" blue="0.66658520700000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keE-WA-7Ic">
+                    <rect key="frame" x="156.5" y="411.5" width="62" height="30"/>
+                    <state key="normal" title="重新加载"/>
+                    <connections>
+                        <action selector="clickReloadButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="Pna-N9-G7m"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="keE-WA-7Ic" firstAttribute="top" secondItem="Qsb-CR-jYc" secondAttribute="bottom" constant="30" id="7WV-oF-0AH"/>
+                <constraint firstItem="Qsb-CR-jYc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="Fmg-5T-q2b"/>
+                <constraint firstItem="keE-WA-7Ic" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Lds-2F-JMm"/>
+                <constraint firstItem="Qsb-CR-jYc" firstAttribute="top" secondItem="Cd7-sK-Bdm" secondAttribute="bottom" constant="30" id="aMU-S7-xxQ"/>
+                <constraint firstItem="Cd7-sK-Bdm" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-100" id="eGh-nw-TyS"/>
+                <constraint firstAttribute="trailing" secondItem="Qsb-CR-jYc" secondAttribute="trailing" constant="30" id="haz-tD-Ba7"/>
+                <constraint firstItem="Qsb-CR-jYc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="mbX-he-0Nf"/>
+                <constraint firstItem="Cd7-sK-Bdm" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rP5-kW-4D3"/>
+            </constraints>
+            <connections>
+                <outlet property="mainImageView" destination="Cd7-sK-Bdm" id="ZBN-m5-hfg"/>
+                <outlet property="reloadButton" destination="keE-WA-7Ic" id="8Ak-rP-nct"/>
+                <outlet property="showLabel" destination="Qsb-CR-jYc" id="nQp-7a-ezz"/>
+            </connections>
+            <point key="canvasLocation" x="39.5" y="71.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="捂脸.jpg" width="16" height="16"/>
+    </resources>
+</document>

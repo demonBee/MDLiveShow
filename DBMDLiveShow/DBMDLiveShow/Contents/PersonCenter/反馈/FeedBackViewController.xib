@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedBackViewController">
+            <connections>
+                <outlet property="inputButton" destination="KyC-jE-pSd" id="CRX-Xf-whi"/>
+                <outlet property="myTextView" destination="mqS-uW-YrH" id="h9S-CC-AuX"/>
+                <outlet property="showLabel" destination="dKf-Jd-hBb" id="xvk-Lq-xUN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mqS-uW-YrH">
+                    <rect key="frame" x="20" y="80" width="335" height="150"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="ot8-wp-cKR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还需输入25个字，才能提交" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKf-Jd-hBb">
+                    <rect key="frame" x="100.5" y="240" width="174" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.70580428839999998" green="0.70592731239999995" blue="0.70579653980000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyC-jE-pSd">
+                    <rect key="frame" x="60" y="297" width="255" height="34"/>
+                    <color key="backgroundColor" red="0.92614728212356567" green="0.75341796875" blue="0.28745672106742859" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="提交"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="mqS-uW-YrH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="6QJ-b6-IMa"/>
+                <constraint firstItem="mqS-uW-YrH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="L85-zb-fBf"/>
+                <constraint firstItem="dKf-Jd-hBb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Z0Z-Qj-4qj"/>
+                <constraint firstItem="KyC-jE-pSd" firstAttribute="top" secondItem="dKf-Jd-hBb" secondAttribute="bottom" constant="40" id="cPo-a5-rQu"/>
+                <constraint firstItem="dKf-Jd-hBb" firstAttribute="top" secondItem="mqS-uW-YrH" secondAttribute="bottom" constant="10" id="itc-66-gWC"/>
+                <constraint firstAttribute="trailing" secondItem="KyC-jE-pSd" secondAttribute="trailing" constant="60" id="nTK-1q-6Kx"/>
+                <constraint firstItem="KyC-jE-pSd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="orf-f4-WjJ"/>
+                <constraint firstAttribute="trailing" secondItem="mqS-uW-YrH" secondAttribute="trailing" constant="20" id="qaQ-fy-uCv"/>
+                <constraint firstItem="KyC-jE-pSd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vuw-2k-Yal"/>
+            </constraints>
+            <point key="canvasLocation" x="32.5" y="54.5"/>
+        </view>
+    </objects>
+</document>
