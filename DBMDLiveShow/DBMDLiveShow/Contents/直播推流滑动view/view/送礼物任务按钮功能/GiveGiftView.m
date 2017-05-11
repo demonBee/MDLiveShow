@@ -10,8 +10,13 @@
 #import "TopImageButton.h"
 #import "GiftModel.h"
 
+#import "PrePaidViewController.h"
+#import "NewPersonInfoModel.h"
+
+
 @interface GiveGiftView()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong)UIView*mainView;   //主要的显示面板
+
 
 @property(nonatomic,strong)NSString*anchor_id;  //送礼物 主播的id
 @property(nonatomic,strong)NSMutableArray*allDatasModel;  //保存所有礼物的model
@@ -92,6 +97,18 @@
         self.bottomLabel=bottomLabel;
         
         
+        //充值按钮
+        UIButton*recharge=[[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-100, self.mainView.height-25, 80, 20)];
+        [recharge setTitle:DBGetStringWithKeyFromTable(@"L充值", nil)];
+        recharge.titleLabel.font=[UIFont systemFontOfSize:14];
+        recharge.layer.borderWidth=0.1f;
+        recharge.layer.borderColor=[UIColor whiteColor].CGColor;
+        recharge.layer.borderWidth=3;
+        recharge.layer.masksToBounds=YES;
+        [recharge addTarget:self action:@selector(toRecharge)];
+        [self.mainView addSubview:recharge];
+        
+        
         
     }else{
         [JRToast showWithText:DBGetStringWithKeyFromTable(@"L礼物最多显示6个", nil)];
@@ -143,6 +160,16 @@
     
     
 }
+
+-(void)toRecharge{
+    NewPersonInfoModel*model=[[NewPersonInfoModel alloc]init];
+    model.CurrencyNumber=[UserSession instance].user_info.CurrencyNumber;
+    
+    PrePaidViewController*vc=[[PrePaidViewController alloc]initWithDatas:model];
+    [[self viewController].navigationController pushViewController:vc animated:YES];
+    
+}
+
 
 //点击送礼物
 -(void)clickGiveGift:(TopImageButton*)sender{
@@ -225,6 +252,28 @@
         _allDatasModel=[NSMutableArray array];
     }
     return _allDatasModel;
+    
+}
+
+
+
+//得到view 的父视图控制器
+
+- (UIViewController*)viewController
+{
+    
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        
+        UIResponder *nextResponder = [next nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            
+            return (UIViewController *)nextResponder;
+        }
+    }
+    
+    return nil
+    ;
 }
 
 @end
