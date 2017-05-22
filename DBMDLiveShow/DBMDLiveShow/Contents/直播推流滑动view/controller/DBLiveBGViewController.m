@@ -227,7 +227,7 @@
         }else{
             [JRToast showWithText:DBGetStringWithKeyFromTable(@"L获取聊天室失败", nil)];
         }
-        
+      
         
     }];
     

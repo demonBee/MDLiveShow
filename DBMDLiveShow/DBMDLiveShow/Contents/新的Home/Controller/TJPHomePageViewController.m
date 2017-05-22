@@ -12,6 +12,7 @@
 #import "MDSignedShowViewController.h"
 #import "TJPHotViewController.h"
 #import "DBVideoViewController.h"
+#import "MDVideoViewController.h"   //视频
 
 #import "PYSearch.h"  //搜索功能
 #import "DBSearchViewController.h"
@@ -109,11 +110,16 @@
     MDSignedShowViewController *attentionVC = [[MDSignedShowViewController alloc] initWithtype:showTypeAttention];
     DBVideoViewController*videoVC=[[DBVideoViewController alloc]init];
     videoVC.typee=videoTypeRecommendVedio;
+    
+    MDVideoViewController*MDVC=[[MDVideoViewController alloc]init];
+    
 
     
-    [self.segementBarVC setUpWithItems:@[DBGetStringWithKeyFromTable(@"L全部", nil), DBGetStringWithKeyFromTable(@"L热门", nil),DBGetStringWithKeyFromTable(@"L关注", nil),DBGetStringWithKeyFromTable(@"L回放", nil)] childVCs:@[allVC, hotVC, attentionVC,videoVC]];
+    [self.segementBarVC setUpWithItems:@[DBGetStringWithKeyFromTable(@"L全部", nil), DBGetStringWithKeyFromTable(@"L热门", nil),DBGetStringWithKeyFromTable(@"L关注", nil),DBGetStringWithKeyFromTable(@"L视频", nil),DBGetStringWithKeyFromTable(@"L回放", nil)] childVCs:@[allVC, hotVC, attentionVC,MDVC,videoVC]];
     
     //设置属性相关
+    self.segementBarVC.segementBar.selectIndex=3;
+    
     [self.segementBarVC.segementBar updateWithConfig:^(TJPSegementBarConfig *config) {
         config.segementBarBackColor = [UIColor clearColor];
         config.itemNormalColor = [UIColor whiteColor];

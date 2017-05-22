@@ -172,6 +172,7 @@
 		C16602451EA0B364005FAFC1 /* STCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602421EA0B364005FAFC1 /* STCountDownButton.m */; };
 		C16602461EA0B364005FAFC1 /* STCountDownConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602441EA0B364005FAFC1 /* STCountDownConst.m */; };
 		C16602491EA102B2005FAFC1 /* NewPersonInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602481EA102B2005FAFC1 /* NewPersonInfoModel.m */; };
+		C16B67901ECE871100370839 /* MDVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16B678F1ECE871100370839 /* MDVideoViewController.m */; };
 		C19067391EBC0961008DB502 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C19067381EBC0961008DB502 /* PayRecordViewController.m */; };
 		C190673D1EBC0B67008DB502 /* PayRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C190673B1EBC0B67008DB502 /* PayRecordTableViewCell.m */; };
 		C190673E1EBC0B67008DB502 /* PayRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C190673C1EBC0B67008DB502 /* PayRecordTableViewCell.xib */; };
@@ -596,6 +597,8 @@
 		C16602441EA0B364005FAFC1 /* STCountDownConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCountDownConst.m; sourceTree = "<group>"; };
 		C16602471EA102B2005FAFC1 /* NewPersonInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPersonInfoModel.h; sourceTree = "<group>"; };
 		C16602481EA102B2005FAFC1 /* NewPersonInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPersonInfoModel.m; sourceTree = "<group>"; };
+		C16B678E1ECE871100370839 /* MDVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVideoViewController.h; sourceTree = "<group>"; };
+		C16B678F1ECE871100370839 /* MDVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVideoViewController.m; sourceTree = "<group>"; };
 		C19067371EBC0961008DB502 /* PayRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordViewController.h; sourceTree = "<group>"; };
 		C19067381EBC0961008DB502 /* PayRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayRecordViewController.m; sourceTree = "<group>"; };
 		C190673A1EBC0B67008DB502 /* PayRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordTableViewCell.h; sourceTree = "<group>"; };
@@ -1307,6 +1310,7 @@
 		C127D0F21E770B2F0017073E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C16B678D1ECE86DA00370839 /* 视频 */,
 				C1DBB8851EA8939E0058D7D4 /* 录像大厅 */,
 				C1F0F4C31E82BAF200C9B34F /* signedShow */,
 				C127D0F31E770B2F0017073E /* TJPHomePageViewController.h */,
@@ -1717,6 +1721,15 @@
 				C16602441EA0B364005FAFC1 /* STCountDownConst.m */,
 			);
 			path = STCountDownButton;
+			sourceTree = "<group>";
+		};
+		C16B678D1ECE86DA00370839 /* 视频 */ = {
+			isa = PBXGroup;
+			children = (
+				C16B678E1ECE871100370839 /* MDVideoViewController.h */,
+				C16B678F1ECE871100370839 /* MDVideoViewController.m */,
+			);
+			path = "视频";
 			sourceTree = "<group>";
 		};
 		C19067351EBC0925008DB502 /* 充值记录 */ = {
@@ -2342,6 +2355,7 @@
 				C127D0DB1E7708C20017073E /* UIImageView+HighlightedWebCache.m in Sources */,
 				C127D0E21E7708C20017073E /* TJPSegementBarVC.m in Sources */,
 				C19AC0DF1EBB0BED00842569 /* DBLivingRoomTopView.m in Sources */,
+				C16B67901ECE871100370839 /* MDVideoViewController.m in Sources */,
 				C16602491EA102B2005FAFC1 /* NewPersonInfoModel.m in Sources */,
 				C127D0AF1E7708C20017073E /* MASViewConstraint.m in Sources */,
 				C1CE3FB01EB84A8600C0D692 /* TAAbstractDotView.m in Sources */,

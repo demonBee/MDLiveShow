@@ -16,7 +16,8 @@
 + (void)removeCache;
 //得到UUID
 +(NSString *)getUUID;
-
+//得到第一响应者的view
++(UIView*)findFirstResponderBeneathView:(UIView*)view;
 
 #pragma 广告栏需要
 //判断文件是否存在
@@ -37,5 +38,8 @@
 
 //传一个时间 转化为 17：05：02
 +(NSString*)TimeStartFormat:(NSString*)str;
+
+
+
 
 @end

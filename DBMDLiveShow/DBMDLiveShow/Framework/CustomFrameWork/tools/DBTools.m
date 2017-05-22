@@ -281,4 +281,18 @@
 }
 
 
+
++(UIView*)findFirstResponderBeneathView:(UIView*)view
+{
+    // Search recursively for first responder
+    for ( UIView *childView in view.subviews ) {
+        if ( [childView respondsToSelector:@selector(isFirstResponder)] && [childView isFirstResponder] )
+            return childView;
+        UIView *result = [self findFirstResponderBeneathView:childView];
+        if ( result )
+            return result;
+    }
+    return nil;
+}
+
 @end
