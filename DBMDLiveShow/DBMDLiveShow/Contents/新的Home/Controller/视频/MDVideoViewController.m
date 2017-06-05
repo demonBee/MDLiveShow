@@ -7,8 +7,9 @@
 //
 
 #import "MDVideoViewController.h"
+#import "YJSegmentedControl.h"
 
-@interface MDVideoViewController ()
+@interface MDVideoViewController ()<YJSegmentedControlDelegate>
 
 @end
 
@@ -18,6 +19,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.]
     self.view.backgroundColor=[UIColor greenColor];
+    //
+    [self addTopChooseView];
+    
+}
+
+-(void)addTopChooseView{
+    NSArray*titleDatas=@[@"马累",@"瓦杜岛",@"阿里拉岛",@"安娜塔娜迪古岛",@"卡尼岛",@"安娜塔娜迪古岛",@"安娜塔娜迪古岛",@"安娜塔娜迪古岛"];
+    YJSegmentedControl*topView=[YJSegmentedControl segmentedControlFrame:CGRectMake(0, 0, KScreenWidth, 44) titleDataSource:titleDatas backgroundColor:[UIColor whiteColor] titleColor:[UIColor blackColor] titleFont:[UIFont systemFontOfSize:14] selectColor:KNaviColor buttonDownColor:KNaviColor Delegate:self];
+    [self.view addSubview:topView];
+    
+ 
+    
+}
+
+
+
+#pragma mark  --  delegate
+-(void)segumentSelectionChange:(NSInteger)selection{
+    MyLog(@"%lu",selection);
+
 }
 
 - (void)didReceiveMemoryWarning {

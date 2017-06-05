@@ -20,7 +20,6 @@
 @property(nonatomic,strong)DBNoDataView*noDataView;   //没有信息时候覆盖
 
 
-
 @property(nonatomic,strong)NSMutableArray*allDatasM;
 
 

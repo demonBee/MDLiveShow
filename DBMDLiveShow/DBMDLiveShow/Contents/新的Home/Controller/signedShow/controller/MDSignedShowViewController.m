@@ -8,16 +8,20 @@
 
 #import "MDSignedShowViewController.h"
 #import "SSCollectionViewCell.h"
+#import "AdvertShowCollectionReusableView.h"
 
 #import "TJPRefreshGifHeader.h"
 #import "NewPersonInfoModel.h"
+#import "HotAdvertiseModel.h"
 
 
 #import "MDLiveViewController.h"
+#import "DBWebViewController.h"
 
 
 
 #define CCELL0    @"SSCollectionViewCell"
+#define CCEllHeader  @"AdvertShowCollectionReusableView"
 
 @interface MDSignedShowViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -25,6 +29,7 @@
 @property(nonatomic,strong)DBNoDataView*noDataView;   //没有信息时候覆盖
 /** 数据源*/
 @property (nonatomic, strong) NSMutableArray *liveDatas;
+@property(nonatomic,strong)NSMutableArray*saveAdvertisementDatas;  //保存好广告
 @property(nonatomic,strong)NSString*type;
 @property(nonatomic,assign)NSInteger pagen;
 @property(nonatomic,assign)NSInteger pages;
@@ -81,9 +86,18 @@
     [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor=[UIColor whiteColor];
     [self.collectionView registerNib:[UINib nibWithNibName:CCELL0 bundle:nil] forCellWithReuseIdentifier:CCELL0];
+    [self.collectionView registerClass:[AdvertShowCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:CCEllHeader];
+    
     
     [self addRefresh];
     [self loadData];   //第一次加载数据
+    
+    if ([self.type isEqualToString:@"1"]) {
+        //全部特有的 广告位来获取数据
+        [self getAdvertisementDatas];
+
+    }
+  
 }
 
 #pragma mark - refresh
@@ -114,7 +128,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    self.noDataView.hidden=self.liveDatas.count!=0;
+//    self.noDataView.hidden=self.liveDatas.count!=0;
     return self.liveDatas.count;
 }
 
@@ -127,6 +141,39 @@
     return cell;
 }
 
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    if (self.saveAdvertisementDatas.count>=1&&[self.type isEqualToString:@"1"]) {
+        AdvertShowCollectionReusableView*header=[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:CCEllHeader forIndexPath:indexPath];
+        header.allDatas=self.saveAdvertisementDatas;
+        header.clickAdvertBlock=^(HotAdvertiseModel *model){
+            NSString*address=model.address;
+            DBWebViewController*vc=[[DBWebViewController alloc]init];
+            vc.urlStr=address;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        };
+        
+        return header;
+
+    
+    }else{
+        return nil;
+    }
+    
+  }
+
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+   
+    if (self.saveAdvertisementDatas.count>=1&&[self.type isEqualToString:@"1"]) {
+         return CGSizeMake(KScreenWidth, 100);
+    }else{
+        return CGSizeZero;
+    }
+    
+}
+
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MDLiveViewController*vc=[[MDLiveViewController alloc]initWithAllModel:self.liveDatas andNumber:indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
@@ -135,6 +182,32 @@
 
 
 #pragma mark  --getDatas
+
+//广告这里
+-(void)getAdvertisementDatas{
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_Advertisement];
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:nil compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            [self.saveAdvertisementDatas removeAllObjects];
+            
+            for (NSDictionary*dict in data[@"data"]) {
+                HotAdvertiseModel*model=[HotAdvertiseModel yy_modelWithDictionary:dict];
+                [self.saveAdvertisementDatas addObject:model];
+            }
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+        }
+        
+        
+        [self.collectionView reloadData];
+        
+    }];
+    
+    
+}
 
 
 //第一次的时候吊用接口
@@ -202,6 +275,14 @@
     }
     return _liveDatas;
 }
+
+-(NSMutableArray *)saveAdvertisementDatas{
+    if (!_saveAdvertisementDatas) {
+        _saveAdvertisementDatas=[NSMutableArray array];
+    }
+    return _saveAdvertisementDatas;
+}
+
 
 -(DBNoDataView *)noDataView{
     if (!_noDataView) {

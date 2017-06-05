@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -52,22 +52,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A小小的直播间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPD-LD-KfW">
-                                <rect key="frame" x="10" y="47" width="88.5" height="16"/>
+                                <rect key="frame" x="10" y="47" width="125" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4MD-s9-L5h">
+                                <rect key="frame" x="140" y="40" width="40" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="JwH-Xt-xl6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="clickZan:" destination="gTV-IL-0wX" eventType="touchUpInside" id="wW8-UD-C1E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="rPD-LD-KfW" secondAttribute="trailing" constant="50" id="2O6-x3-UFy"/>
                             <constraint firstAttribute="height" constant="70" id="32v-Vs-h0u"/>
                             <constraint firstAttribute="trailing" secondItem="fAq-MQ-XTa" secondAttribute="trailing" constant="10" id="GR1-SQ-wkP"/>
                             <constraint firstItem="OTr-2K-Mla" firstAttribute="top" secondItem="QN1-pU-jJO" secondAttribute="top" constant="5" id="HVU-r4-wya"/>
                             <constraint firstItem="rPD-LD-KfW" firstAttribute="leading" secondItem="QN1-pU-jJO" secondAttribute="leading" constant="10" id="OkW-BX-Usm"/>
+                            <constraint firstItem="4MD-s9-L5h" firstAttribute="leading" secondItem="rPD-LD-KfW" secondAttribute="trailing" constant="5" id="PFb-ff-vvj"/>
                             <constraint firstItem="OTr-2K-Mla" firstAttribute="leading" secondItem="QN1-pU-jJO" secondAttribute="leading" constant="10" id="VIu-6k-kcf"/>
                             <constraint firstItem="rPD-LD-KfW" firstAttribute="top" secondItem="fAq-MQ-XTa" secondAttribute="bottom" constant="5" id="ZwA-Rs-5N5"/>
+                            <constraint firstAttribute="trailing" secondItem="4MD-s9-L5h" secondAttribute="trailing" constant="5" id="cbQ-GI-7Xi"/>
                             <constraint firstItem="fAq-MQ-XTa" firstAttribute="leading" secondItem="QN1-pU-jJO" secondAttribute="leading" constant="10" id="jBm-Zd-EpM"/>
                             <constraint firstItem="fAq-MQ-XTa" firstAttribute="top" secondItem="OTr-2K-Mla" secondAttribute="bottom" constant="5" id="n8m-Rx-9ac"/>
+                            <constraint firstItem="4MD-s9-L5h" firstAttribute="centerY" secondItem="rPD-LD-KfW" secondAttribute="centerY" id="qN0-2v-qtQ"/>
                             <constraint firstAttribute="trailing" secondItem="OTr-2K-Mla" secondAttribute="trailing" constant="10" id="rqk-2L-hbq"/>
                         </constraints>
                     </view>
@@ -106,6 +120,7 @@
                 <outlet property="roomName" destination="rPD-LD-KfW" id="e2W-W9-ZMy"/>
                 <outlet property="timeLabel" destination="fAq-MQ-XTa" id="GbU-YQ-X35"/>
                 <outlet property="timeLongLabel" destination="OTr-2K-Mla" id="Zcg-HC-o7X"/>
+                <outlet property="zanButton" destination="4MD-s9-L5h" id="H3o-a1-54g"/>
             </connections>
             <point key="canvasLocation" x="-147.5" y="-119.5"/>
         </collectionViewCell>

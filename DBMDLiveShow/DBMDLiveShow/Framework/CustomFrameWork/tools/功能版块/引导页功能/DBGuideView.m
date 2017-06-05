@@ -32,7 +32,7 @@
 
 
 -(void)addScrollView{
-    NSArray*allDatas=@[@"lb1.jpg",@"lb2.jpg",@"lb3.jpg",@"lb4.jpg"];
+    NSArray*allDatas=@[@"lb1.jpg",@"lb2.jpg",@"lb3.jpg",@"lb5.jpg"];
     
     UIScrollView*scrollView=[[UIScrollView alloc]initWithFrame:self.frame];
     scrollView.backgroundColor=[UIColor whiteColor];
@@ -63,7 +63,7 @@
     }
     
     
-    UIButton*button=[[UIButton alloc]initWithFrame:CGRectMake((allDatas.count-1)*KScreenWidth+30, KScreenHeight-100-20, KScreenWidth-60, 40)];
+    UIButton*button=[[UIButton alloc]initWithFrame:CGRectMake((allDatas.count-1)*KScreenWidth+30, KScreenHeight-50, KScreenWidth-60, 40)];
     button.backgroundColor=KNaviColor;
     button.layer.cornerRadius=15;
     button.layer.masksToBounds=YES;

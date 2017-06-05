@@ -29,4 +29,7 @@
 
 + (CGSize)getTipMessageCellSize:(NSString *)content;
 
+
+
+
 @end

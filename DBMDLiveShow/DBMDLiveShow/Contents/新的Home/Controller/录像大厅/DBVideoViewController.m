@@ -157,7 +157,7 @@
 */
 
 #pragma mark  -- datas
-//这个是回看里面的
+//这个是回看里面的  首页
 -(void)getDatas{
     NSString*pagen=[NSString stringWithFormat:@"%lu",self.pagen];
     NSString*pages=[NSString stringWithFormat:@"%lu",self.pages];

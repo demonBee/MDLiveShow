@@ -28,14 +28,27 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
-    
+//    [self.navigationController.navigationBar setHidden:NO];
+//    
+//    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
+      [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
+//
+//-(void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//    [self.navigationController.navigationBar setHidden:NO];
+//    
+//    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
+//  [self.navigationController setNavigationBarHidden:NO animated:NO];
+//    
+//}
+
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
+//    [self.navigationController.navigationBar setHidden:NO];
     
+//     [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
 }
 
 

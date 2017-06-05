@@ -28,6 +28,7 @@
 #define HTTP_Advertisement    @"/api.php/Index/getAd/"   //得到广告
 #define HTTP_Search      @"/api.php/User/search/"      //搜索
 #define HTTP_SearchTitle   @"/api.php/Index/getKeyword/"  //搜索获取推荐的关键字
+#define HTTP_clickZan      @"/api.php/user/beVideoLikes"   //点赞接口
 
 
 #define HTTP_UserAndAnchorRelation  @"/api.php/User/getIsFollowAnchor" //用户是否关注主播

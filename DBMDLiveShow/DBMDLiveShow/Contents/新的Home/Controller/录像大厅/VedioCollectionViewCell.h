@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roomName;
 
+@property (weak, nonatomic) IBOutlet UIButton *zanButton;
 
 
 @property(nonatomic,strong)VideoModel*mainModel;

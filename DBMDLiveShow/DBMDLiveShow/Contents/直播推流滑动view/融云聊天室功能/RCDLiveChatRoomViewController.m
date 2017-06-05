@@ -714,6 +714,8 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
  */
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+     
     RCDLiveMessageModel *model =[self.conversationDataRepository objectAtIndex:indexPath.row];
     RCMessageContent *messageContent = model.content;
     RCDLiveMessageBaseCell *cell = nil;
@@ -1018,6 +1020,9 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
                                      [[RCIMClient sharedRCIMClient]deleteMessages:@[ @(messageId) ]];
                                  }];
 }
+
+
+
 
 /**
  *  接收到消息的回调

@@ -113,18 +113,18 @@
     
     MDVideoViewController*MDVC=[[MDVideoViewController alloc]init];
     
-
+//DBGetStringWithKeyFromTable(@"L热门", nil),DBGetStringWithKeyFromTable(@"L关注", nil),DBGetStringWithKeyFromTable(@"L视频", nil),
+//     hotVC, attentionVC,MDVC,
     
-    [self.segementBarVC setUpWithItems:@[DBGetStringWithKeyFromTable(@"L全部", nil), DBGetStringWithKeyFromTable(@"L热门", nil),DBGetStringWithKeyFromTable(@"L关注", nil),DBGetStringWithKeyFromTable(@"L视频", nil),DBGetStringWithKeyFromTable(@"L回放", nil)] childVCs:@[allVC, hotVC, attentionVC,MDVC,videoVC]];
+    [self.segementBarVC setUpWithItems:@[DBGetStringWithKeyFromTable(@"L全部", nil), DBGetStringWithKeyFromTable(@"L回放", nil)] childVCs:@[allVC,videoVC]];
     
     //设置属性相关
-    self.segementBarVC.segementBar.selectIndex=3;
+    self.segementBarVC.segementBar.selectIndex=0;
     
     [self.segementBarVC.segementBar updateWithConfig:^(TJPSegementBarConfig *config) {
         config.segementBarBackColor = [UIColor clearColor];
         config.itemNormalColor = [UIColor whiteColor];
         config.itemSelectedColor = [UIColor whiteColor];
-        
         config.indicatorColor = [UIColor whiteColor];
         config.indicatorExtraW = -10;
         

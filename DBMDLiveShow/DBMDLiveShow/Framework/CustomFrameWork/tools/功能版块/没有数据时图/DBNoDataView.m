@@ -24,6 +24,7 @@
     [super awakeFromNib];
     self.mainImageView.layer.cornerRadius=self.mainImageView.width/2;
     self.mainImageView.layer.masksToBounds=YES;
+    self.mainImageView.image=[UIImage imageNamed:@"noData.jpg"];
     
     self.showLabel.text=DBGetStringWithKeyFromTable(@"L很遗憾！暂无数据", nil);
     [self.reloadButton setTitle:DBGetStringWithKeyFromTable(@"L重新加载", nil)];
