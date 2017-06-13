@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DBNewLoginViewController">
             <connections>
+                <outlet property="agreementButton" destination="taF-3H-xqF" id="yp9-1o-3n0"/>
                 <outlet property="codeTextField" destination="va6-ve-whl" id="o2C-4d-8IM"/>
                 <outlet property="getCodeButton" destination="0MN-yX-vZb" id="Bi4-Xg-UaF"/>
                 <outlet property="loginButton" destination="tzh-if-KjT" id="FM5-8e-tgt"/>
@@ -146,6 +147,16 @@
                         <action selector="weboLogin:" destination="-1" eventType="touchUpInside" id="zec-0c-d1Q"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taF-3H-xqF">
+                    <rect key="frame" x="100.5" y="528" width="174" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="登录即视为同意注册协议" image="register_selected">
+                        <color key="titleColor" red="0.49014008050000002" green="0.49022829530000001" blue="0.49013447760000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="clickAdvermentButton:" destination="-1" eventType="touchUpInside" id="EsX-g5-rtL"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.97244364023208618" green="0.97260981798171997" blue="0.97243314981460571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -165,6 +176,7 @@
                 <constraint firstAttribute="trailing" secondItem="Fne-dt-U1g" secondAttribute="trailing" constant="20" id="JYU-Nf-3An"/>
                 <constraint firstItem="Kxx-6k-3BC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="LT1-FH-Yur"/>
                 <constraint firstItem="jvL-PH-qlC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Mu6-f1-ne6"/>
+                <constraint firstItem="oQS-L1-lKi" firstAttribute="top" secondItem="taF-3H-xqF" secondAttribute="bottom" constant="20" id="O0c-rn-UmU"/>
                 <constraint firstItem="jvL-PH-qlC" firstAttribute="top" secondItem="dwb-bJ-EVm" secondAttribute="bottom" constant="20" id="OEh-of-NrO"/>
                 <constraint firstAttribute="trailing" secondItem="dwb-bJ-EVm" secondAttribute="trailing" id="PKU-Y1-3jy"/>
                 <constraint firstItem="kkh-uV-Pgc" firstAttribute="centerY" secondItem="oQS-L1-lKi" secondAttribute="centerY" id="PkI-tp-Chs"/>
@@ -173,6 +185,7 @@
                 <constraint firstItem="0MN-yX-vZb" firstAttribute="leading" secondItem="va6-ve-whl" secondAttribute="trailing" constant="60" id="Vpv-ZC-jMT"/>
                 <constraint firstItem="oQS-L1-lKi" firstAttribute="centerY" secondItem="4bY-2i-e6L" secondAttribute="centerY" id="Y6S-Ri-ytp"/>
                 <constraint firstAttribute="bottom" secondItem="oQS-L1-lKi" secondAttribute="bottom" constant="85" id="ZM9-sb-c5r"/>
+                <constraint firstItem="taF-3H-xqF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Zfu-UJ-b4B"/>
                 <constraint firstAttribute="trailing" secondItem="0MN-yX-vZb" secondAttribute="trailing" constant="20" id="Zz3-1Q-H8b"/>
                 <constraint firstItem="bYH-6t-7UI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="axT-32-1ao"/>
                 <constraint firstAttribute="trailing" secondItem="kkh-uV-Pgc" secondAttribute="trailing" constant="40" id="bty-kQ-vO5"/>
@@ -193,5 +206,6 @@
         <image name="icon_qq" width="23" height="24"/>
         <image name="icon_wechat" width="29" height="24"/>
         <image name="icon_weibo" width="25" height="20"/>
+        <image name="register_selected" width="16" height="16"/>
     </resources>
 </document>

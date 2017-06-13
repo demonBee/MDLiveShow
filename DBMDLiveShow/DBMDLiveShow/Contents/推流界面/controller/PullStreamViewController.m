@@ -15,6 +15,7 @@
 
 #import "DBAllWatcherViewController.h"
 #import "DBRealNameViewController.h"   //实名认证界面
+#import "RecordViewController.h"  // 美拍入口
 
 
 
@@ -144,6 +145,26 @@
     [startView addSubview:pullButton];
     self.pullStreamButton=pullButton;
     
+    
+    
+    
+    //美拍
+    UIButton *recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 62, 62)];
+    [recordButton setImage:[UIImage imageNamed:@"btn_record_a"] forState:UIControlStateNormal];
+    [recordButton addTarget:self action:@selector(pressRecordButton:) forControlEvents:UIControlEventTouchUpInside];
+    recordButton.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds) / 2, CGRectGetHeight([UIScreen mainScreen].bounds) / 2+60);
+    [startView addSubview:recordButton];
+//    recordButton.hidden=YES;
+    
+    UILabel *recordLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    recordLabel.text = @"短视频";
+    recordLabel.textAlignment = NSTextAlignmentCenter;
+    recordLabel.textColor = [UIColor grayColor];
+    recordLabel.center = CGPointMake(recordButton.center.x, recordButton.center.y + 44);
+    [startView addSubview:recordLabel];
+//    recordLabel.hidden=YES;
+
+    
 }
 
 
@@ -152,6 +173,13 @@
 
 
 #pragma mark  --touch
+    //美拍的 入口
+- (void)pressRecordButton:(id)sender {
+    RecordViewController *recordViewController = [[RecordViewController alloc] init];
+    [self presentViewController:recordViewController animated:YES completion:nil];
+}
+    
+    
 -(void)touchPop{
     
       [self dismissViewControllerAnimated:YES completion:nil];

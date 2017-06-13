@@ -27,7 +27,8 @@ pod ‘UMengUShare/Social/WeChat'
 
 pod "PLPlayerKit"
 pod "PLMediaStreamingKit"
-
+#  pod 'PLShortVideoKit'
+pod 'Qiniu', '7.1.5'
 
 
 

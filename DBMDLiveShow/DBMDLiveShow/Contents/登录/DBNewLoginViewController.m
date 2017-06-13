@@ -8,6 +8,7 @@
 
 #import "DBNewLoginViewController.h"
 #import "XLTabBarViewController.h"
+#import "DBAdvermentViewController.h"
 
 @interface DBNewLoginViewController ()
 
@@ -47,6 +48,19 @@ static DBNewLoginViewController*loginManager=nil;
     [self ToAutoLogin];
     
     
+    NSString*buttonTitle=self.agreementButton.title;
+    NSString*frontTitle=[buttonTitle substringToIndex:buttonTitle.length-4];
+    NSString*fourTitle=[buttonTitle substringFromIndex:buttonTitle.length-4];
+    NSMutableAttributedString*frontText=[[NSMutableAttributedString alloc]initWithString:frontTitle attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    NSMutableAttributedString*lastFour=[[NSMutableAttributedString alloc]initWithString:fourTitle attributes:@{NSForegroundColorAttributeName:KNaviColor}];
+    
+    [frontText appendAttributedString:lastFour];
+    [self.agreementButton setAttributedTitle:frontText forState:UIControlStateNormal];
+    
+ 
+    
+    
+    
 }
 
 
@@ -57,13 +71,13 @@ static DBNewLoginViewController*loginManager=nil;
         self.wechatButton.hidden=YES;
     }
     
-    if (![[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ]){
-        self.qqButton.hidden=YES;
-    }
+//    if (![[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_QQ]){
+//        self.qqButton.hidden=YES;
+//    }
     
-    if (![[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_Sina]){
-        self.weiboButton.hidden=YES;
-    }
+//    if (![[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_Sina]){
+//        self.weiboButton.hidden=YES;
+//    }
     
     //纯是 为了测试
 #if TARGET_IPHONE_SIMULATOR
@@ -103,6 +117,16 @@ static DBNewLoginViewController*loginManager=nil;
 
 
 #pragma mark  touch
+
+- (IBAction)clickAdvermentButton:(id)sender {
+    DBAdvermentViewController*vc=[[DBAdvermentViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+}
+
+
+
 //获取验证码
 - (IBAction)clickGetCode:(STCountDownButton*)sender {
     if (self.phoneTextField.text.length!=11) {

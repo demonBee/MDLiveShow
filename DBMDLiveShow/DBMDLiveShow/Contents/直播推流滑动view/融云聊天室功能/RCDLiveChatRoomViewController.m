@@ -14,6 +14,7 @@
 
 #import "RCDLiveTipMessageCell.h"
 #import "RCDLiveMessageModel.h"
+#import "LiveRoomPointCollectionReusableView.h"  //collectionView的header
 
 #import "RCDLive.h"
 #import "RCDLiveCollectionViewHeader.h"
@@ -34,6 +35,10 @@
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
+
+
+#define headerReuserView  @"LiveRoomPointCollectionReusableView"
+
 @interface RCDLiveChatRoomViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, RCDLiveMessageCellDelegate, UIGestureRecognizerDelegate,
@@ -125,7 +130,7 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
     self.conversationMessageCollectionView = nil;
     self.targetId = nil;
     [self registerNotification];
-    self.defaultHistoryMessageCountOfChatRoom = 10;
+    self.defaultHistoryMessageCountOfChatRoom = 3;
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
 }
 
@@ -414,6 +419,8 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
     //    [self registerClass:[RCDLiveGiftMessageCell class]forCellWithReuseIdentifier:RCDLiveGiftMessageCellIndentifier];
 
     [self registerClass:[RCDLiveTipMessageCell class]forCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier];
+    
+    [self.conversationMessageCollectionView registerClass:[LiveRoomPointCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerReuserView];
     
     //这个就是布局的
     [self changeModel:YES];
@@ -731,6 +738,31 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
     return cell;
 }
 
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    LiveRoomPointCollectionReusableView*headerView=[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerReuserView forIndexPath:indexPath];
+    headerView.textStr=@"美游直播提倡绿色直播，封面和直播内容包含低俗、色情、暴力、违法等不良信息都将被屏蔽热门或封停账号。";
+    
+    
+    return headerView;
+}
+
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    NSString*str=@"美游直播提倡绿色直播，封面和直播内容包含低俗、色情、暴力、违法等不良信息都将被屏蔽热门或封停账号。";
+    CGFloat cellHeight=[LiveRoomPointCollectionReusableView getcollectionViewSizeWithText:str andMaxWith:240];
+    return CGSizeMake(240, cellHeight);
+}
+
+//-(
+//  CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger
+//                                                                                                                                                  )section{
+//    
+//    
+//    return CGSizeMake(XLScreenW, 300
+//                      );
+//}
+
+
+
 #pragma mark <UICollectionViewDelegateFlowLayout>
 
 /**
@@ -803,9 +835,9 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
 }
 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeZero;
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+//    return CGSizeZero;
+//}
 
 #pragma mark <UICollectionViewDelegate>
 

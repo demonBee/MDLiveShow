@@ -118,6 +118,7 @@ static CGFloat HostBgViewW = 128;
 //        make.width.offset(viewW);
 //    }];
 
+    [self.headImageScrollView removeFromSuperview];
     self.headImageScrollView=nil;
     
     CGFloat width = HeadImageViewWidth;

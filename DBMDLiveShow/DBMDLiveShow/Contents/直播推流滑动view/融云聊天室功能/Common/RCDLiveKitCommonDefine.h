@@ -8,11 +8,15 @@
 
 #define USE_BUNDLE_RESOUCE 1
 
-//#define RONGCLOUD_IM_APPKEY @"e5t4ouvptkm2a"
-//#define RONGCLOUD_IM_APPSECRET @"vB4FakXm8f68"
 
-#define RONGCLOUD_IM_APPKEY @"kj7swf8okynr2"
-#define RONGCLOUD_IM_APPSECRET @"lKx7mclZAFC3nB"
+
+#define RONGCLOUD_IM_APPKEY @"qf3d5gbjqe9kh"
+#define RONGCLOUD_IM_APPSECRET @"vzr6OeOFA9"
+
+
+//测试
+//#define RONGCLOUD_IM_APPKEY @"kj7swf8okynr2"
+//#define RONGCLOUD_IM_APPSECRET @"lKx7mclZAFC3nB"
 
 
 //-----------UI-Macro Definination---------//

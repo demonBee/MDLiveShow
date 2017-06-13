@@ -20,7 +20,7 @@
     
     self.CoverView.backgroundColor=[UIColor colorWithWhite:0 alpha:0.2];
     
-    [self.zanButton setTitle:@"123"];
+    [self.zanButton setTitle:@"0"];
     self.zanButton.titleLabel.font=[UIFont systemFontOfSize:10];
     self.zanButton.titleEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
     [self.zanButton setImage:@"zanLove"];
@@ -57,25 +57,26 @@
 //点赞
 - (IBAction)clickZan:(id)sender {
     UIButton*button=sender;
-    button.userInteractionEnabled=NO;
+    button.enabled=NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        button.userInteractionEnabled=YES;
+        button.enabled=YES;
         
     });
     
-    MyLog(@"xxx");
+ 
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_clickZan];
-#warning 1 删掉
-    self.mainModel.video_id=@"3";
+
     
-    NSDictionary*params=@{@"user_id":[UserSession instance].user_id,@"video_id":self.mainModel.video_id};
+    NSDictionary*params=@{@"user_id":[UserSession instance].user_id,@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"video_id":self.mainModel.video_id};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);
         if ([data[@"errorCode"] integerValue]==0) {
             //成功了
-            [JRToast showWithText:@"点赞成功"];
-            [self.zanButton setTitle:data[@"data"]];
+            [JRToast showWithText:data[@"data"]];
+            NSInteger number=[_mainModel.VideoZanNumber integerValue]+1;
+            [self.zanButton setTitle:[NSString stringWithFormat:@"%lu",number]];
+            
             
         }else{
             [JRToast showWithText:data[@"errorMessage"]];

@@ -28,4 +28,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *qqButton;
 @property (weak, nonatomic) IBOutlet UIButton *weiboButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *agreementButton;
+
 @end
