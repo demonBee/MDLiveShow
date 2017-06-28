@@ -93,6 +93,22 @@
 }
 
 
+-(void)selectTheButton:(NSInteger)number{
+    
+    if (selectSeugment != number) {
+        
+        [self.btnTitleSource[selectSeugment] setSelected:NO];
+        [self.btnTitleSource[number] setSelected:YES];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            [buttonDownView setFrame:CGRectMake(number * witdthFloat,self.bounds.size.height - 2, witdthFloat, 2)];
+        }];
+        selectSeugment = number;
+    }
+}
+
+
 //改变button的标题的title
 -(void)changeButtonName:(NSArray*)buttonTitles{
  

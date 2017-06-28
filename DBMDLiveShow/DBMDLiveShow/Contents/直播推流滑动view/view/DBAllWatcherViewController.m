@@ -9,13 +9,15 @@
 #import "DBAllWatcherViewController.h"
 #import "DBFansTableViewCell.h"
 
-#import "DBUserPersonView.h"
+//#import "DBUserPersonView.h"
+#import "DBShowInfoView.h"
 
 #define CELL0   @"DBFansTableViewCell"
 
 @interface DBAllWatcherViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tableView;
-@property(nonatomic,strong)DBUserPersonView*userPersonView;  //用户个人中心view
+//@property(nonatomic,strong)DBUserPersonView*userPersonView;  //用户个人中心view
+@property(nonatomic,strong)DBShowInfoView*showInfoView;
 
 @property(nonatomic,strong)NSMutableArray*allDatas;
 @property(nonatomic,assign)NSInteger pagen;
@@ -43,11 +45,11 @@
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    [self.userPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(@0);
-        make.width.offset(302);
-        make.height.offset(410);
-    }];
+//    [self.userPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(@0);
+//        make.width.offset(302);
+//        make.height.offset(410);
+//    }];
     
     
 }
@@ -149,12 +151,8 @@
 
 - (void)clickUser:(NewPersonInfoModel *)model {
     
-           self.userPersonView.mainModel=model;
-        [UIView animateWithDuration:0.25 animations:^{
-            self.userPersonView.hidden = NO;
-            self.userPersonView.transform = CGAffineTransformIdentity;
-        }];
-        
+    self.showInfoView.mainModel=model;
+    [self.showInfoView show];
     
     
 }
@@ -172,26 +170,35 @@
     return _tableView;
 }
 
--(DBUserPersonView *)userPersonView{
-    if (!_userPersonView) {
-        _userPersonView=[DBUserPersonView creatDBUserPersonView];
-        _userPersonView.hidden=YES;
-        _userPersonView.transform=CGAffineTransformMakeScale(0.01, 0.01);
-        [self.view addSubview:_userPersonView];
-        DBSelf(weakSelf);
-        [_userPersonView setCloseViewBlock:^{
-            [UIView animateWithDuration:0.25 animations:^{
-                weakSelf.userPersonView.hidden = YES;
-                weakSelf.userPersonView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-            } completion:nil];
-        }];
-        
-        
-        
+
+-(DBShowInfoView *)showInfoView{
+    if (!_showInfoView) {
+        _showInfoView=[DBShowInfoView showInfoViewInView:self.view];
     }
-    return _userPersonView;
-    
+    return _showInfoView;
 }
+
+
+//-(DBUserPersonView *)userPersonView{
+//    if (!_userPersonView) {
+//        _userPersonView=[DBUserPersonView creatDBUserPersonView];
+//        _userPersonView.hidden=YES;
+//        _userPersonView.transform=CGAffineTransformMakeScale(0.01, 0.01);
+//        [self.view addSubview:_userPersonView];
+//        DBSelf(weakSelf);
+//        [_userPersonView setCloseViewBlock:^{
+//            [UIView animateWithDuration:0.25 animations:^{
+//                weakSelf.userPersonView.hidden = YES;
+//                weakSelf.userPersonView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+//            } completion:nil];
+//        }];
+//        
+//        
+//        
+//    }
+//    return _userPersonView;
+//    
+//}
 
 
 -(NSMutableArray *)allDatas{

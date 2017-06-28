@@ -373,6 +373,16 @@
     [_moviefile exportMovieToPhotosAlbum:@[url]];
     
     playViewController = [[PlayViewController alloc] init];
+    DBSelf(weakSelf);
+    playViewController.dismissBlock = ^(){
+      [weakSelf dismissViewControllerAnimated:NO completion:^{
+          if (weakSelf.nextDismissBlock) {
+              weakSelf.nextDismissBlock();
+          }
+          
+      }];
+        
+    };
     playViewController.url = url;
     [self presentViewController:playViewController animated:YES completion:nil];
 }

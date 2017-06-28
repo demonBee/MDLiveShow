@@ -15,4 +15,6 @@
 @property (strong, nonatomic) AVAsset *asset;
 @property (assign, nonatomic) CGFloat totalDuration;
 
+@property(nonatomic,copy)void(^nextDismissBlock)();
+
 @end

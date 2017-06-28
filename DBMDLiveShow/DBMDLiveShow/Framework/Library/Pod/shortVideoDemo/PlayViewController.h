@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) NSURL *url;
 
+@property(nonatomic,copy)void(^dismissBlock)();
+
 @end

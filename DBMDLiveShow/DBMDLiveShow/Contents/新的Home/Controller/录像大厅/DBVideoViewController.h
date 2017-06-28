@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSInteger,videoType){
     videoTypeRecommendVedio=0,
-    videoTypeMyVedio
+    videoTypeMyVedio,
+    videoTypeHotel
 };
 
 @interface DBVideoViewController : UIViewController

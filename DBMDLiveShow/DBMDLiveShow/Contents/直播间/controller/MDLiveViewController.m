@@ -9,7 +9,8 @@
 #import "MDLiveViewController.h"
 #import "LivingRoomCollectionViewCell.h"
 #import "DBLiveBGViewController.h"
-#import "DBUserPersonView.h"
+//#import "DBUserPersonView.h"
+#import "DBShowInfoView.h"
 
 #import "NewPersonInfoModel.h"
 
@@ -19,7 +20,9 @@
 @interface MDLiveViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 
 @property(nonatomic,strong)UICollectionView*collectionView;
-@property(nonatomic,strong)DBUserPersonView*userPersonView;  //用户个人中心view
+//@property(nonatomic,strong)DBUserPersonView*userPersonView;  //用户个人中心view
+@property(nonatomic,strong)DBShowInfoView*userInfoView;
+
 @property(nonatomic,strong)DBLiveBGViewController*BGVC;
 
 
@@ -62,11 +65,11 @@
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    [self.userPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(@0);
-        make.width.offset(302);
-        make.height.offset(410);
-    }];
+//    [self.userPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(@0);
+//        make.width.offset(302);
+//        make.height.offset(410);
+//    }];
 
     
 }
@@ -133,15 +136,24 @@
     
     if (notification.userInfo[@"info"]) {
         
+//        NewPersonInfoModel *userItem = notification.userInfo[@"info"];
+//        self.userPersonView.mainModel=userItem;
+//        [UIView animateWithDuration:0.25 animations:^{
+//            self.userPersonView.hidden = NO;
+//            self.userPersonView.transform = CGAffineTransformIdentity;
+//        }];
+        
+        
         NewPersonInfoModel *userItem = notification.userInfo[@"info"];
-        self.userPersonView.mainModel=userItem;
-        [UIView animateWithDuration:0.25 animations:^{
-            self.userPersonView.hidden = NO;
-            self.userPersonView.transform = CGAffineTransformIdentity;
-        }];
+        self.userInfoView.mainModel=userItem;
+
+        [self.userInfoView show];
+        
         
     }
     
+        
+        
 }
 
 
@@ -204,25 +216,36 @@
 }
 
 
--(DBUserPersonView *)userPersonView{
-    if (!_userPersonView) {
-        _userPersonView=[DBUserPersonView creatDBUserPersonView];
-        _userPersonView.hidden=YES;
-        _userPersonView.transform=CGAffineTransformMakeScale(0.01, 0.01);
-        [self.view addSubview:_userPersonView];
-        DBSelf(weakSelf);
-        [_userPersonView setCloseViewBlock:^{
-            [UIView animateWithDuration:0.25 animations:^{
-                weakSelf.userPersonView.hidden = YES;
-                weakSelf.userPersonView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-            } completion:nil];
-        }];
+//-(DBUserPersonView *)userPersonView{
+//    if (!_userPersonView) {
+//        _userPersonView=[DBUserPersonView creatDBUserPersonView];
+//        _userPersonView.hidden=YES;
+//        _userPersonView.transform=CGAffineTransformMakeScale(0.01, 0.01);
+//        [self.view addSubview:_userPersonView];
+//        DBSelf(weakSelf);
+//        [_userPersonView setCloseViewBlock:^{
+//            [UIView animateWithDuration:0.25 animations:^{
+//                weakSelf.userPersonView.hidden = YES;
+//                weakSelf.userPersonView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+//            } completion:nil];
+//        }];
+//
+//        
+//        
+//    }
+//    return _userPersonView;
+//    
+//}
 
-        
+
+-(DBShowInfoView *)userInfoView{
+    if (!_userInfoView) {
+        _userInfoView=[DBShowInfoView showInfoViewInView:self.view];
         
     }
-    return _userPersonView;
     
+    return _userInfoView;
 }
+
 
 @end

@@ -16,7 +16,7 @@
 /*!
  提示的Label
  */
-@property(strong, nonatomic) RCDLiveTipLabel *tipMessageLabel;
+@property(strong, nonatomic) RCDLiveAttributedLabel *tipMessageLabel;
 
 @property(assign, nonatomic) BOOL isFullScreenMode;
 

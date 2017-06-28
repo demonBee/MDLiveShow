@@ -15,8 +15,8 @@
 #define PLS_BaseToolboxView_HEIGHT 64
 #define PLS_RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
 
-static NSString *const kUploadToken = @"MqF35-H32j1PH8igh-am7aEkduP511g-5-F7j47Z:0gzBOkhm3KsFGbGk2HdKfA4jZp4=:eyJzY29wZSI6InNob3J0LXZpZGVvIiwiZGVhZGxpbmUiOjE2NTA3MTExMDcsInVwaG9zdHMiOlsiaHR0cDovL3VwLXoyLnFpbml1LmNvbSIsImh0dHA6Ly91cGxvYWQtejIucWluaXUuY29tIiwiLUggdXAtejIucWluaXUuY29tIGh0dHA6Ly8xODMuNjAuMjE0LjE5OCJdfQ==";
-static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
+//static NSString *const kUploadToken = @"MqF35-H32j1PH8igh-am7aEkduP511g-5-F7j47Z:0gzBOkhm3KsFGbGk2HdKfA4jZp4=:eyJzY29wZSI6InNob3J0LXZpZGVvIiwiZGVhZGxpbmUiOjE2NTA3MTExMDcsInVwaG9zdHMiOlsiaHR0cDovL3VwLXoyLnFpbml1LmNvbSIsImh0dHA6Ly91cGxvYWQtejIucWluaXUuY29tIiwiLUggdXAtejIucWluaXUuY29tIGh0dHA6Ly8xODMuNjAuMjE0LjE5OCJdfQ==";
+//static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
 
 @interface PlayViewController ()
 
@@ -34,6 +34,11 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
 @property (strong, nonatomic) UIButton *uploadButton;
 @property (strong, nonatomic) UIProgressView *progressView;
 
+
+@property(nonatomic,strong)NSString*uploadToken;
+@property(nonatomic,strong)NSString*urlPrefix;
+
+
 @end
 
 @implementation PlayViewController
@@ -41,6 +46,12 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //得到前缀
+    self.urlPrefix=@"http://meipai.zhiboquan.net";
+    
+    //得到token
+    [self getQNToken];
+    
     
     [self setupToolboxUI];
     
@@ -119,7 +130,7 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
     [self.uploadButton setTitleColor:PLS_RGBCOLOR(141, 141, 142) forState:UIControlStateHighlighted];
     self.uploadButton.frame = CGRectMake(PLS_SCREEN_WIDTH - 80, 0, 80, 64);
     self.uploadButton.titleLabel.font = [UIFont systemFontOfSize:16];
-    [self.uploadButton addTarget:self action:@selector(uploadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.uploadButton addTarget:self action:@selector(WriteInfo) forControlEvents:UIControlEventTouchUpInside];
     [self.baseToolboxView addSubview:self.uploadButton];
 }
 
@@ -133,7 +144,56 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)uploadButtonClick:(id)sender {
+- (void)WriteInfo{
+    UIAlertController*alertVC=[UIAlertController alertControllerWithTitle:@"上传短视频" message:@"完善短视频信息" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction*sure=[UIAlertAction actionWithTitle:@"提交" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField*titleTF=alertVC.textFields[0];
+        UITextField*cityTF=alertVC.textFields[1];
+        
+        NSString*titleStr=titleTF.text;
+        if (titleTF.text.length==0) {
+            titleStr=@"";
+        }
+        
+        NSString*cityStr=cityTF.text;
+        if (cityTF.text.length==0) {
+            cityStr=@"";
+        }
+        
+        
+        [self uploadButtonClickWithTitle:titleStr andCity:cityStr];
+        
+        
+    }];
+    UIAlertAction*cancel=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertVC addAction:sure];
+    [alertVC addAction:cancel];
+    
+    [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder=@"请输入视频标题";
+        
+    }];
+    [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder=@"请输入所在城市";
+    }];
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
+
+    
+    
+}
+
+
+- (void)uploadButtonClickWithTitle:(NSString*)titleStr andCity:(NSString*)cityStr {
+    
+    if (!self.uploadToken) {
+        [JRToast showWithText:@"未获取上传token,可能网速较慢"];
+        return;
+    }
+    
+    
     self.uploadButton.selected = !self.uploadButton.selected;
     if (!self.uploadButton.selected) {
         return;
@@ -159,7 +219,7 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
                                                      cancellationSignal:^BOOL{
                                                          return !self.uploadButton.isSelected;
                                                      }];
-    [[QNUploadManager sharedInstanceWithConfiguration:config] putFile:filePath key:key token:kUploadToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+    [[QNUploadManager sharedInstanceWithConfiguration:config] putFile:filePath key:key token:_uploadToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         self.uploadButton.selected = NO;
         self.progressView.hidden = YES;
         NSLog(@"resp = %@",resp);
@@ -169,10 +229,32 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
             return ;
         }
         
-        NSString *urlString = [NSString stringWithFormat:@"%@/%@", kURLPrefix, key];
-        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = urlString;
-        [self showAlertWithMessage:[NSString stringWithFormat:@"上传成功，地址：%@ 已复制到系统剪贴板", urlString]];
+        NSString *urlString = [NSString stringWithFormat:@"%@//%@", _urlPrefix, key];
+        
+//        [self addAlertTextFiledAndPut:urlString];
+        
+//        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//        pasteboard.string = urlString;
+//        [self showAlertWithMessage:[NSString stringWithFormat:@"上传成功，地址：%@ 已复制到系统剪贴板", urlString]];
+        
+        
+        //这图片 直接动态获取
+        NSString*imageStr=[NSString stringWithFormat:@"%@?vframe/jpg/offset/0",urlString];
+        CGFloat Long=[DBTools durationWithVideo:self.url];
+        NSString*videoLong=[NSString stringWithFormat:@"%.0f",Long];
+        NSString*currentTimeStamp=[DBTools getNowTimeTimestamp];
+        
+        
+        
+        
+        
+        
+        //先要判断 图片地址有没有  没有的话提示 稍等
+        [self InputInfoWithVideoStr:urlString andTitle:titleStr andCity:cityStr andTime:currentTimeStamp andVideoLong:videoLong andVideoImage:imageStr];
+
+        
+        
+        
     } option:uploadOption];
     
     
@@ -214,5 +296,70 @@ static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
     
     _baseToolboxView = nil;
 }
+
+
+
+#pragma mark  -- self
+-(void)getQNToken{
+
+    
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_meipaiToken];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            NSString*token=data[@"data"];
+            self.uploadToken=token;
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+        }
+        
+        
+    }];
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+-(void)InputInfoWithVideoStr:(NSString*)videoAddress andTitle:(NSString*)titleStr andCity:(NSString*)cityStr andTime:(NSString*)currentTimeStamp andVideoLong:(NSString*)videoLong andVideoImage:(NSString*)videoImage{
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_giveService];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"title":titleStr,@"url":videoAddress,@"snapshot_img":videoImage,@"location":cityStr,@"duration":videoLong,@"send_time":currentTimeStamp};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            [JRToast showWithText:@"短视频上传成功" duration:5.0 ];
+            
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (self.dismissBlock) {
+                    self.dismissBlock();
+                }
+            
+            }];
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+            
+        }
+        
+        
+    }];
+    
+    
+    
+    
+    
+}
+
+
+
 
 @end

@@ -8,7 +8,7 @@
 
 #import "DBTools.h"
 #import "AdvertiseView.h"   //宏
-
+#import <AVFoundation/AVFoundation.h>
 
 
 @implementation DBTools
@@ -213,6 +213,34 @@
 
 
 #pragma 关于时间
+//获取当前时间戳有两种方法(以秒为单位)
+
++(NSString *)getNowTimeTimestamp{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+    
+    //设置时区,这个对于时间的处理有时很重要
+    
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    
+    [formatter setTimeZone:timeZone];
+    
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    
+    return timeSp;
+    
+}
+
+
+
 //一个很全的时间
 +(NSString*)TimeWholeFormat:(NSString*)str{
     //这个是 北京时区
@@ -238,22 +266,22 @@
 }
 
 
-//传一个时间 转化为00：00：00
+//传一个时间 转化为00：00：00    扣除了8小时
 +(NSString*)TimeLongFormat:(NSString*)str{
     //这个是 北京时区
     NSDate*Strdate=[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)[str intValue]];
-////得到当前时区
-//    NSTimeZone * zone = [NSTimeZone systemTimeZone];
-////当前时区和国际时区差了多少秒  28800秒
-//    NSInteger interval = [zone secondsFromGMTForDate:Strdate];
-// //得到伦敦时区的时间
-//    NSDate*londonDate=[Strdate dateByAddingTimeInterval:-interval];
+//得到当前时区
+    NSTimeZone * zone = [NSTimeZone systemTimeZone];
+//当前时区和国际时区差了多少秒  28800秒
+    NSInteger interval = [zone secondsFromGMTForDate:Strdate];
+ //得到伦敦时区的时间
+    NSDate*londonDate=[Strdate dateByAddingTimeInterval:-interval];
 
     
     NSDateFormatter*dateFormatter=[[NSDateFormatter alloc]init];
 //    @"yy:MM:dd"
     [dateFormatter setDateFormat:@" HH:mm:ss"];
-    NSString*getTimer=[dateFormatter stringFromDate:Strdate];
+    NSString*getTimer=[dateFormatter stringFromDate:londonDate];
     
     
     
@@ -294,5 +322,37 @@
     }
     return nil;
 }
+
+
+
+
+// 获取视频第一帧
++ (UIImage*) getVideoPreViewImage:(NSURL *)path
+{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:path options:nil];
+    AVAssetImageGenerator *assetGen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    
+    assetGen.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMakeWithSeconds(1.0, 600);
+    NSError *error = nil;
+    CMTime actualTime;
+    CGImageRef image = [assetGen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    UIImage *videoImage = [[UIImage alloc] initWithCGImage:image];
+    CGImageRelease(image);
+    return videoImage;
+}
+
+
+//获取视频的时长
++ (NSUInteger)durationWithVideo:(NSURL *)videoUrl{
+    
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:videoUrl options:opts]; // 初始化视频媒体文件
+    NSUInteger second = 0;
+    second = urlAsset.duration.value / urlAsset.duration.timescale; // 获取视频总时长,单位秒
+    
+    return second;
+}
+
 
 @end

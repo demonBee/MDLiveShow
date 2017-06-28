@@ -9,10 +9,10 @@
 #import "TJPHomePageViewController.h"
 #import "TJPSegementBarVC.h"
 
-#import "MDSignedShowViewController.h"
+#import "MDSignedShowViewController.h"   //直播
 #import "TJPHotViewController.h"
-#import "DBVideoViewController.h"
-#import "MDVideoViewController.h"   //视频
+#import "DBVideoViewController.h"      //回放
+#import "MDShortVideoViewController.h"   //短视频
 
 #import "PYSearch.h"  //搜索功能
 #import "DBSearchViewController.h"
@@ -106,17 +106,20 @@
     [self.view addSubview:self.segementBarVC.view];
     
     MDSignedShowViewController *allVC = [[MDSignedShowViewController alloc] initWithtype:showTypeAll];
-    TJPHotViewController *hotVC = [[TJPHotViewController alloc] init];
-    MDSignedShowViewController *attentionVC = [[MDSignedShowViewController alloc] initWithtype:showTypeAttention];
+    
+//    TJPHotViewController *hotVC = [[TJPHotViewController alloc] init];
+//    MDSignedShowViewController *attentionVC = [[MDSignedShowViewController alloc] initWithtype:showTypeAttention];
+    
     DBVideoViewController*videoVC=[[DBVideoViewController alloc]init];
     videoVC.typee=videoTypeRecommendVedio;
     
-    MDVideoViewController*MDVC=[[MDVideoViewController alloc]init];
+    MDShortVideoViewController*MDShortVC=[[MDShortVideoViewController alloc]init];
+    MDShortVC.typee=MDShortVideoTypePageHome;
     
 //DBGetStringWithKeyFromTable(@"L热门", nil),DBGetStringWithKeyFromTable(@"L关注", nil),DBGetStringWithKeyFromTable(@"L视频", nil),
 //     hotVC, attentionVC,MDVC,
     
-    [self.segementBarVC setUpWithItems:@[DBGetStringWithKeyFromTable(@"L全部", nil), DBGetStringWithKeyFromTable(@"L回放", nil)] childVCs:@[allVC,videoVC]];
+    [self.segementBarVC setUpWithItems:@[DBGetStringWithKeyFromTable(@"L直播", nil), DBGetStringWithKeyFromTable(@"L回放", nil),DBGetStringWithKeyFromTable(@"L短视频", nil)] childVCs:@[allVC,videoVC,MDShortVC]];
     
     //设置属性相关
     self.segementBarVC.segementBar.selectIndex=0;

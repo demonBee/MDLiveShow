@@ -183,7 +183,7 @@
     [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);
         if ([data[@"errorCode"] integerValue] ==0) {
-            [JRToast showWithText:data[@"msg"]];
+//            [JRToast showWithText:data[@"msg"]];
             [UserSession instance].user_info.CurrencyNumber=data[@"data"];
             //需要刷新
             [self changeMainView];
@@ -198,7 +198,7 @@
             [JRToast showWithText:data[@"errorMessage"]];
         }
         
-        [self hidden];
+//        [self hidden];
     }];
     
     

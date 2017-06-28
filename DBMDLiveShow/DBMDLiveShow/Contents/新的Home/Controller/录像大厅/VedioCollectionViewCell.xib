@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -92,6 +93,17 @@
                             <constraint firstAttribute="height" constant="20" id="iUL-Nd-3Sp"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xi-tm-bkp">
+                        <rect key="frame" x="155" y="43" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="6rQ-bi-Xd2"/>
+                            <constraint firstAttribute="width" secondItem="9xi-tm-bkp" secondAttribute="height" multiplier="1:1" id="e9a-49-hxO"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="大叉"/>
+                        <connections>
+                            <action selector="clickDeleteButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="dUc-9U-RYS"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,7 +119,9 @@
                 <constraint firstAttribute="bottom" secondItem="QN1-pU-jJO" secondAttribute="bottom" id="hDP-jj-Jhd"/>
                 <constraint firstAttribute="trailing" secondItem="BQW-KJ-Q8K" secondAttribute="trailing" constant="60" id="idL-gq-3sb"/>
                 <constraint firstItem="HnP-Aq-SR5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="is0-Wx-vvo"/>
+                <constraint firstAttribute="trailing" secondItem="9xi-tm-bkp" secondAttribute="trailing" constant="10" id="ln9-pf-cGM"/>
                 <constraint firstAttribute="trailing" secondItem="1L6-la-cBy" secondAttribute="trailing" constant="15" id="n9o-Xb-2Zl"/>
+                <constraint firstItem="9xi-tm-bkp" firstAttribute="top" secondItem="1L6-la-cBy" secondAttribute="bottom" constant="10" id="sOC-Kq-1gN"/>
                 <constraint firstItem="HnP-Aq-SR5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="t96-kY-XrG"/>
                 <constraint firstItem="QN1-pU-jJO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vDe-kr-RT8"/>
             </constraints>
@@ -117,6 +131,7 @@
                 <outlet property="CoverView" destination="QN1-pU-jJO" id="OWf-WL-rNS"/>
                 <outlet property="anchor_nick" destination="BQW-KJ-Q8K" id="3uv-Id-e2J"/>
                 <outlet property="anchor_photo" destination="HnP-Aq-SR5" id="772-X7-uyw"/>
+                <outlet property="deleteButton" destination="9xi-tm-bkp" id="UFS-4b-YB3"/>
                 <outlet property="roomName" destination="rPD-LD-KfW" id="e2W-W9-ZMy"/>
                 <outlet property="timeLabel" destination="fAq-MQ-XTa" id="GbU-YQ-X35"/>
                 <outlet property="timeLongLabel" destination="OTr-2K-Mla" id="Zcg-HC-o7X"/>
@@ -125,4 +140,7 @@
             <point key="canvasLocation" x="-147.5" y="-119.5"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="大叉" width="32" height="32"/>
+    </resources>
 </document>

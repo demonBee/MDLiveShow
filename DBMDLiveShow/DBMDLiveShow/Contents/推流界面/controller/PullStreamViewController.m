@@ -6,11 +6,16 @@
 //  Copyright © 2017年 TianWei You. All rights reserved.
 //
 
+
 #import "PullStreamViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
+
 #import "NewPersonInfoModel.h"
 
 #import "DBLiveBGViewController.h"
-#import "DBUserPersonView.h"
+//#import "DBUserPersonView.h"
+#import "DBShowInfoView.h"
 
 
 #import "DBAllWatcherViewController.h"
@@ -18,8 +23,14 @@
 #import "RecordViewController.h"  // 美拍入口
 
 
+#pragma 从相册中选择
+#import "TZImagePickerController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+#import "PlayViewController.h"
 
-@interface PullStreamViewController ()
+
+@interface PullStreamViewController ()<PLMediaStreamingSessionDelegate,TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong)NewPersonInfoModel *liveItem;  //自己的直播间的所有数据
 @property(nonatomic,strong)NSURL*url;   //推流的地址
@@ -36,11 +47,12 @@
 @property(nonatomic,strong)UISwitch*recordSwitch;
 
 @property(nonatomic,strong)DBLiveBGViewController*BGVC;   //可滑动view
-@property(nonatomic,strong)DBUserPersonView*userPersonView;  //用户个人中心view
+//@property(nonatomic,strong)DBUserPersonView*userPersonView;  //用户个人中心view
+@property(nonatomic,strong)DBShowInfoView*showInfoView;
 
 
 
-
+@property (nonatomic, strong) UIImagePickerController *imagePickerVc;  //相册选择器
 
 
 @end
@@ -73,11 +85,11 @@
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     
-    [self.userPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(@0);
-        make.width.offset(302);
-        make.height.offset(410);
-    }];
+//    [self.userPersonView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(@0);
+//        make.width.offset(302);
+//        make.height.offset(410);
+//    }];
 
 }
 
@@ -164,6 +176,16 @@
     [startView addSubview:recordLabel];
 //    recordLabel.hidden=YES;
 
+    
+    UIButton *locateButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 62, 62)];
+    [locateButton setImage:[UIImage imageNamed:@"本地上传"] forState:UIControlStateNormal];
+    [locateButton addTarget:self action:@selector(locatePull:) forControlEvents:UIControlEventTouchUpInside];
+    locateButton.center = CGPointMake(CGRectGetWidth([UIScreen mainScreen].bounds) / 2, CGRectGetMaxY(recordLabel.frame)+20);
+    [startView addSubview:locateButton];
+
+    
+    
+    
     
 }
 
@@ -295,6 +317,9 @@
     //    [_session setWhiten:0.5];
     //    [_session setRedden:0.5];
     
+    self.session.delegate=self;
+//    self.session.monitorNetworkStateEnable=YES;
+    self.session.autoReconnectEnable=YES;   //自动重连
     
     [self.view addSubview:self.session.previewView];
     
@@ -354,17 +379,40 @@
     
 }
 
+//上传本地短视频
+-(void)locatePull:(UIButton*)sender{
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:1 delegate:self pushPhotoPickerVc:NO];
+    imagePickerVc.allowPickingVideo =YES;
+    imagePickerVc.allowPickingImage=NO;
+    
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        MyLog(@"11");
+        
+        
+    }];
+    
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+
+
+    
+    
+  
+}
+
 
 - (void)clickUser:(NSNotification *)notification {
     
     if (notification.userInfo[@"info"]) {
         
         NewPersonInfoModel *userItem = notification.userInfo[@"info"];
-        self.userPersonView.mainModel=userItem;
-        [UIView animateWithDuration:0.25 animations:^{
-            self.userPersonView.hidden = NO;
-            self.userPersonView.transform = CGAffineTransformIdentity;
-        }];
+        self.showInfoView.mainModel=userItem;
+        [self.showInfoView show];
+        
+//        self.userPersonView.mainModel=userItem;
+//        [UIView animateWithDuration:0.25 animations:^{
+//            self.userPersonView.hidden = NO;
+//            self.userPersonView.transform = CGAffineTransformIdentity;
+//        }];
         
     }
     
@@ -515,25 +563,56 @@
 }
 
 
--(DBUserPersonView *)userPersonView{
-    if (!_userPersonView) {
-        _userPersonView=[DBUserPersonView creatDBUserPersonView];
-        _userPersonView.hidden=YES;
-        _userPersonView.transform=CGAffineTransformMakeScale(0.01, 0.01);
-        [self.view addSubview:_userPersonView];
-        DBSelf(weakSelf);
-        [_userPersonView setCloseViewBlock:^{
-            [UIView animateWithDuration:0.25 animations:^{
-                weakSelf.userPersonView.hidden = YES;
-                weakSelf.userPersonView.transform = CGAffineTransformMakeScale(0.01, 0.01);
-            } completion:nil];
-        }];
-        
-        
-        
+//-(DBUserPersonView *)userPersonView{
+//    if (!_userPersonView) {
+//        _userPersonView=[DBUserPersonView creatDBUserPersonView];
+//        _userPersonView.hidden=YES;
+//        _userPersonView.transform=CGAffineTransformMakeScale(0.01, 0.01);
+//        [self.view addSubview:_userPersonView];
+//        DBSelf(weakSelf);
+//        [_userPersonView setCloseViewBlock:^{
+//            [UIView animateWithDuration:0.25 animations:^{
+//                weakSelf.userPersonView.hidden = YES;
+//                weakSelf.userPersonView.transform = CGAffineTransformMakeScale(0.01, 0.01);
+//            } completion:nil];
+//        }];
+//        
+//        
+//        
+//    }
+//    return _userPersonView;
+//    
+//}
+
+
+-(DBShowInfoView *)showInfoView{
+    if (!_showInfoView) {
+        _showInfoView=[DBShowInfoView showInfoViewInView:self.view];
     }
-    return _userPersonView;
-    
+    return _showInfoView;
+}
+
+
+- (UIImagePickerController *)imagePickerVc {
+    if (_imagePickerVc == nil) {
+        _imagePickerVc = [[UIImagePickerController alloc] init];
+        _imagePickerVc.delegate = self;
+        // set appearance / 改变相册选择页的导航栏外观
+        _imagePickerVc.navigationBar.barTintColor = KNaviColor;
+        _imagePickerVc.navigationBar.tintColor = [UIColor whiteColor];
+        
+        UIBarButtonItem *tzBarItem, *BarItem;
+        if (iOS9Later) {
+            tzBarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[TZImagePickerController class]]];
+            BarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIImagePickerController class]]];
+        } else {
+            tzBarItem = [UIBarButtonItem appearanceWhenContainedIn:[TZImagePickerController class], nil];
+            BarItem = [UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil];
+        }
+        NSDictionary *titleTextAttributes = [tzBarItem titleTextAttributesForState:UIControlStateNormal];
+        [BarItem setTitleTextAttributes:titleTextAttributes forState:UIControlStateNormal];
+    }
+    return _imagePickerVc;
 }
 
 
@@ -561,5 +640,85 @@
     }
     return nil;
 }
+
+
+/// @abstract 流状态已变更的回调
+- (void)mediaStreamingSession:(PLMediaStreamingSession *)session streamStateDidChange:(PLStreamState)state{
+    MyLog(@"%lu",(unsigned long)state);
+    
+    if (state==PLStreamStateAutoReconnecting) {
+        [JRToast showWithText:@"网络问题，正在重连中" duration:5];
+    }else if (state==PLStreamStateConnected){
+        [JRToast showWithText:@"已经连接" duration:2];
+    }
+   
+    
+}
+
+/// @abstract 因产生了某个 error 而断开时的回调，error 错误码的含义可以查看 PLTypeDefines.h 文件
+- (void)mediaStreamingSession:(PLMediaStreamingSession *)session didDisconnectWithError:(NSError *)error{
+    MyLog(@"%@",error);
+    //错误了  退出直播
+    UIAlertController*alertVC=[UIAlertController alertControllerWithTitle:@"网络状态" message:@"重连失败准备退出直播" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction*sureAction=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+        
+    }];
+    [alertVC addAction:sureAction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+    
+    
+}
+
+/// @abstract 当开始推流时，会每间隔 3s 调用该回调方法来反馈该 3s 内的流状态，包括视频帧率、音频帧率、音视频总码率
+- (void)mediaStreamingSession:(PLMediaStreamingSession *)session streamStatusDidUpdate:(PLStreamStatus *)status{
+    MyLog(@"1");
+}
+
+
+
+
+
+
+#pragma mark   --  算了算了  直接这里搞
+//就是这个
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset {
+    DBSelf(weakSelf);
+    
+    if ([asset isKindOfClass:[PHAsset class]]) {
+        PHVideoRequestOptions* options = [[PHVideoRequestOptions alloc] init];
+        options.version = PHVideoRequestOptionsVersionOriginal;
+        options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+        options.networkAccessAllowed = YES;
+        [[PHImageManager defaultManager] requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset* avasset, AVAudioMix* audioMix, NSDictionary* info){
+            // NSLog(@"Info:\n%@",info);
+            AVURLAsset *videoAsset = (AVURLAsset*)avasset;
+            NSLog(@"AVAsset URL: %@",videoAsset.URL);
+            
+             //这里再吊七牛的上传接口
+            
+           dispatch_sync(dispatch_get_main_queue(), ^{
+              
+               PlayViewController* playViewController = [[PlayViewController alloc] init];
+               
+               playViewController.url = videoAsset.URL;
+               [self presentViewController:playViewController animated:YES completion:nil];
+
+               
+               
+           });
+           
+            
+            
+            
+            
+        }];
+    }
+}
+
+
+
+
 
 @end

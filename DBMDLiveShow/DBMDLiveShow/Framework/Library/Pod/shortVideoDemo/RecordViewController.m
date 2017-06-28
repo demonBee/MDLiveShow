@@ -88,7 +88,7 @@
     
     self.shortVideoSession.delegate = self;
     
-    self.shortVideoSession.maxDuration = 60.0f; // 设置最长录制时长
+    self.shortVideoSession.maxDuration = 180.0f; // 设置最长录制时长
 }
 
 - (void)setupBaseToolboxView {
@@ -397,6 +397,12 @@
     
     EditViewController *videoEditViewController = [[EditViewController alloc] init];
     videoEditViewController.urlsArray = filesURLArray;
+    DBSelf(weakSelf);
+    videoEditViewController.nextDismissBlock = ^(){
+        [weakSelf discardRecord];
+        
+    };
+    
     videoEditViewController.asset = asset;
     videoEditViewController.totalDuration = [_shortVideoSession getTotalDuration];
     [self presentViewController:videoEditViewController animated:YES completion:nil];

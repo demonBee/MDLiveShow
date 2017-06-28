@@ -7,12 +7,14 @@
 //
 
 #import "DBVideoViewController.h"
+#import "ChooseButtonCollectionReusableView.h"
 #import "VedioCollectionViewCell.h"
 #import "VideoModel.h"
 #import "DBWebViewController.h"
-
+#import "MoviePlayerViewController.h"
 
 #define CCELL0    @"VedioCollectionViewCell"
+#define HEADER    @"ChooseButtonCollectionReusableView"
 @interface DBVideoViewController ()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 
@@ -22,6 +24,10 @@
 @property(nonatomic,strong)NSMutableArray*allDatasM;  //所有model中的数据
 @property(nonatomic,assign)NSInteger pagen;
 @property(nonatomic,assign)NSInteger pages;
+@property(nonatomic,strong)NSString*Selectedtype;   //1点赞量 2推荐
+
+//我的视频里面 删除判断
+@property(nonatomic,assign)BOOL isDelete;
 
 @end
 
@@ -29,15 +35,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     self.Selectedtype=@"1";
     
     switch (self.typee) {
         case videoTypeRecommendVedio:
             self.title=DBGetStringWithKeyFromTable(@"L精彩回放", nil);
             break;
-        case videoTypeMyVedio:
+        case videoTypeMyVedio:{
             self.title=DBGetStringWithKeyFromTable(@"L我的录像", nil);
+            
+            UIButton*button=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 25)];
+            [button setTitle:@"删除" forState:UIControlStateNormal];
+            [button setTitle:@"完成" forState:UIControlStateSelected];
+            [button addTarget:self action:@selector(clickDelete:)];
+            button.titleLabel.font=[UIFont systemFontOfSize:14];
+            UIBarButtonItem*item=[[UIBarButtonItem alloc]initWithCustomView:button];
+            self.navigationItem.rightBarButtonItem=item;
+            
+            
+            
+        }
             break;
-   
+        case videoTypeHotel:
+//            self.title=DBGetStringWithKeyFromTable(@"L我的录像", nil);
+            break;
+
         default:
             break;
     }
@@ -58,6 +80,7 @@
     [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor=[UIColor whiteColor];
     [self.collectionView registerNib:[UINib nibWithNibName:CCELL0 bundle:nil] forCellWithReuseIdentifier:CCELL0];
+    [self.collectionView registerClass:[ChooseButtonCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HEADER];
     
     [self addRefresh];
 
@@ -85,9 +108,11 @@
         self.pages=0;
         if (self.typee==videoTypeRecommendVedio) {
              [weakSelf getDatas];
-        }else{
+        }else if(self.typee==videoTypeMyVedio){
             [weakSelf MyVideoDatas];
             
+        }else if (self.typee==videoTypeHotel){
+            [weakSelf getDatasHotel];
         }
         
         
@@ -101,9 +126,11 @@
         self.pages++;
         if (self.typee==videoTypeRecommendVedio) {
             [weakSelf getDatas];
-        }else{
+        }else if(self.typee==videoTypeMyVedio){
             [weakSelf MyVideoDatas];
             
+        }else if (self.typee==videoTypeHotel){
+            [weakSelf getDatasHotel];
         }
 
         
@@ -127,19 +154,119 @@
     VideoModel*model=self.allDatasM[indexPath.row];
     cell.mainModel=model;
     
+    if (self.typee==videoTypeMyVedio&&self.isDelete==YES) {
+        cell.deleteButton.hidden=NO;
+        cell.clickDeleteBlock=^(){
+            MyLog(@"%lu",indexPath.row);
+            [self addAlertVCWithInteger:indexPath.row];
+            
+            
+        };
+    }else if (self.typee==videoTypeMyVedio&&self.isDelete==NO){
+        cell.deleteButton.hidden=YES;
+        
+    }
+    
+    
     
     return cell;
 }
 
+
+-(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    if (self.typee==videoTypeRecommendVedio) {
+        ChooseButtonCollectionReusableView*header=[collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:HEADER forIndexPath:indexPath];
+        header.buttonDatas=@[@"点赞量",@"推荐"];
+        NSInteger num=[self.Selectedtype integerValue];
+        [header.topView selectTheButton:num-1];
+        header.clickButtonBlock = ^(NSInteger number) {
+            MyLog(@"1..%lu",number);
+            NSInteger newNumber=number+1;
+            self.Selectedtype=[NSString stringWithFormat:@"%lu",newNumber];
+            [self.collectionView.mj_header beginRefreshing];
+
+        };
+        
+        
+        return header;
+        
+        
+    }else{
+         return nil;
+    }
+    
+    
+  
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if (self.typee==videoTypeRecommendVedio) {
+        return CGSizeMake(KScreenWidth, 44);
+    }else{
+        return CGSizeZero;
+    }
+   
+}
+
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     VideoModel*model=self.allDatasM[indexPath.row];
-    DBWebViewController*vc=[[DBWebViewController alloc]init];
-    vc.urlStr=model.url;
+//    DBWebViewController*vc=[[DBWebViewController alloc]init];
+//    vc.urlStr=model.url;
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    MoviePlayerViewController*vc=[[MoviePlayerViewController alloc]initWithNibName:@"MoviePlayerViewController" bundle:nil];
+    vc.videoURL=[NSURL URLWithString:model.url];
+    vc.videoModel=model;
+    vc.videoType=PlayViewTypePlayBack;
     [self.navigationController pushViewController:vc animated:YES];
+
+    
+    
+    
+}
+
+-(void)addAlertVCWithInteger:(NSInteger)selectedIndex{
+    UIAlertController*alertVC=[UIAlertController alertControllerWithTitle:@"删除" message:@"确实要删除该录像？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction*cancel=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction*sure=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        VideoModel*model=self.allDatasM[selectedIndex];
+        
+        [self.allDatasM removeObject:model];
+        //接口
+        [self getDatasDeleteWithModel:model];
+        
+        [self.collectionView reloadData];
+        
+        
+    }];
+    [alertVC addAction:cancel];
+    [alertVC addAction:sure];
+    [self presentViewController:alertVC animated:YES completion:nil];
+    
+    
     
 }
 
 
+
+#pragma mark  --touch
+-(void)clickDelete:(UIButton*)sender{
+    if (!sender.selected) {
+        sender.selected=YES;
+        self.isDelete=YES;
+        [self.collectionView reloadData];
+    }else{
+        sender.selected=NO;
+        self.isDelete=NO;
+        [self.collectionView reloadData];
+        
+    }
+    
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -157,13 +284,13 @@
 */
 
 #pragma mark  -- datas
-//这个是回看里面的  首页
+//这个是回看里面的  首页     2个筛选
 -(void)getDatas{
     NSString*pagen=[NSString stringWithFormat:@"%lu",self.pagen];
     NSString*pages=[NSString stringWithFormat:@"%lu",self.pages];
     
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_Vedio];
-    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages};
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages,@"type":self.Selectedtype};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);
@@ -225,6 +352,70 @@
         [self.collectionView.mj_footer endRefreshing];
         
     }];
+    
+}
+
+
+
+//酒店的录像
+-(void)getDatasHotel{
+    NSString*pagen=[NSString stringWithFormat:@"%lu",_pagen];
+    NSString*pages=[NSString stringWithFormat:@"%lu",_pages];
+    
+    //这个type 是酒店的录像
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_HotelMeiPai];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages,@"type":@"1"};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            
+            if (self.pages==0) {
+                [self.allDatasM removeAllObjects];
+            }
+            
+            for (NSDictionary*dict in data[@"data"]) {
+                VideoModel*model=[VideoModel yy_modelWithDictionary:dict];
+                [self.allDatasM addObject:model];
+            }
+            
+            [self.collectionView reloadData];
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"] duration:2];
+        }
+        
+        
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+        
+        
+    }];
+    
+
+    
+}
+
+
+//删除其中的一条录像
+-(void)getDatasDeleteWithModel:(VideoModel*)model{
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_DEL_BackPlay];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"video_id":model.video_id};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+             [JRToast showWithText:data[@"msg"]];
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+            [self.collectionView.mj_header beginRefreshing];
+        }
+        
+        
+    }];
+    
+    
     
 }
 

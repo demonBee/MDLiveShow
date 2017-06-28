@@ -22,7 +22,7 @@
 #import "MDShowIncomeMoneyViewController.h"  //直播收益
 #import "PayRecordViewController.h"   //充值记录
 #import "DBVideoViewController.h"   //我的回放
-
+#import "MDShortVideoViewController.h"
 
 #define CCELL0   @"PersonCenterMainViewCCell"
 #define HEADER   @"MDPCHeaderCollectionReusableView"
@@ -165,6 +165,12 @@
         vc.typee=videoTypeMyVedio;
         [self.navigationController pushViewController:vc animated:YES];
         
+    }else if (indexPath.row==8){
+        //我的短视频
+        MDShortVideoViewController*vc=[[MDShortVideoViewController alloc]init];
+        vc.typee=MDShortVideoTypeMyVedio;
+        [self.navigationController pushViewController:vc animated:YES];
+        
     }
     
     
@@ -229,8 +235,11 @@
     NSDictionary*dict5=@{@"image":@"pc_icon5",@"title":DBGetStringWithKeyFromTable(@"L设置", nil)};
     NSDictionary*dict6=@{@"image":@"pc_icon6",@"title":DBGetStringWithKeyFromTable(@"L充值记录", nil)};
     NSDictionary*dict7=@{@"image":@"pc_icon7",@"title":DBGetStringWithKeyFromTable(@"L我的回放", nil)};
+    NSDictionary*dict8=@{@"image":@"pc_icon8",@"title":DBGetStringWithKeyFromTable(@"L我的短视频", nil)};
+    
+    
     //,dict3
-    self.collectionViewDatas=@[dict0,dict1,dict2,dict3,dict4,dict5,dict6,dict7];
+    self.collectionViewDatas=@[dict0,dict1,dict2,dict3,dict4,dict5,dict6,dict7,dict8];
     
 }
 

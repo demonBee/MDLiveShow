@@ -18,6 +18,11 @@
 
 //-----------------------------   中文
 
+
+
+
+"L登录即视为同意"="Registration is deemed consent";
+"L注册协议"="(EULA)";
 //工具
 
 "L取消"="cancel";
@@ -143,12 +148,14 @@
 "L镜头缩放"="scale Camera";
 "L美颜"="beauty";
 "L没有标题?"="no title?";
-"L全部"="totail";
-"L热门"="hot";
-"L回放"="playback";
-"L"="";
-"L"="";
-"L"="";
+//"L全部"="totail";
+//"L热门"="hot";
+"L回放"="Playback";
+"L直播"="Living";
+"L短视频"="ShortVideo";
+"L酒店回放"="HotelPlayback";
+"L酒店"="hotel";
+"L酒店短视频"="HotelShortVideo";
 "L"="";
 "L"="";
 
@@ -182,6 +189,7 @@
 "L设置"="setting";
 "L充值记录"="recharge record";
 "L我的回放"="my replay";
+"L我的短视频"="my shortVideo";
 "L土豪榜"="richer list";
 "L主播榜"="host list";
 "L日榜"="daily";

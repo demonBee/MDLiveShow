@@ -23,8 +23,18 @@
 @property(nonatomic, strong) NSString *type;
 
 
-//礼物   0椰子  1贝壳  2珊瑚  3鲨鱼  4游艇
+//礼物  100个椰子  1贝壳  2珊瑚  3鲨鱼  4游艇       就用这个string 代表着某种礼物中文的
+
 @property(nonatomic,strong)NSString*giftType;
+//文字组织好了
+@property(nonatomic,strong)NSString*titleStr;
+
+
+
+
+
+
+
 //礼物的图片地址
 @property(nonatomic,strong)NSString*giftImageStr;
 //礼物的名字

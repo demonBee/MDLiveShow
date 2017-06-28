@@ -184,7 +184,7 @@
 
 //获取聊天室token
 -(void)aboutChatRoom{
-    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_ChatRoomToken];
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_ProductChatRoomToken];
     NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id};
     DBSelf(weakSelf);
     HttpManager*manager=[[HttpManager alloc]init];

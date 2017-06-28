@@ -15,6 +15,8 @@
     self.BGImageView.contentMode=UIViewContentModeScaleAspectFill;
     self.BGImageView.clipsToBounds = YES;//设置这个属性为YES就可以了，默认是NO;
     
+    _anchor_photo.layer.cornerRadius=10;
+    _anchor_photo.layer.masksToBounds=YES;
     self.anchor_photo.contentMode=UIViewContentModeScaleAspectFill;
     self.anchor_photo.clipsToBounds=YES;
     
@@ -25,6 +27,8 @@
     self.zanButton.titleEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
     [self.zanButton setImage:@"zanLove"];
     self.zanButton.imageEdgeInsets=UIEdgeInsetsMake(5,0, 5, 25);
+    
+    self.deleteButton.hidden=YES;
     
 }
 
@@ -91,5 +95,14 @@
     
     
 }
+
+
+- (IBAction)clickDeleteButton:(id)sender {
+    if (self.clickDeleteBlock) {
+        self.clickDeleteBlock();
+    }
+    
+}
+
 
 @end

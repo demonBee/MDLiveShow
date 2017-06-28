@@ -47,12 +47,17 @@ static DBNewLoginViewController*loginManager=nil;
     //自动登录
     [self ToAutoLogin];
     
+    NSString*aa=DBGetStringWithKeyFromTable(@"L登录即视为同意", nil);
+    NSString*bb=DBGetStringWithKeyFromTable(@"L注册协议", nil);
     
-    NSString*buttonTitle=self.agreementButton.title;
-    NSString*frontTitle=[buttonTitle substringToIndex:buttonTitle.length-4];
-    NSString*fourTitle=[buttonTitle substringFromIndex:buttonTitle.length-4];
-    NSMutableAttributedString*frontText=[[NSMutableAttributedString alloc]initWithString:frontTitle attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
-    NSMutableAttributedString*lastFour=[[NSMutableAttributedString alloc]initWithString:fourTitle attributes:@{NSForegroundColorAttributeName:KNaviColor}];
+    
+    
+    
+//    NSString*buttonTitle=self.agreementButton.title;
+//    NSString*frontTitle=[buttonTitle substringToIndex:buttonTitle.length-4];
+//    NSString*fourTitle=[buttonTitle substringFromIndex:buttonTitle.length-4];
+    NSMutableAttributedString*frontText=[[NSMutableAttributedString alloc]initWithString:aa attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    NSMutableAttributedString*lastFour=[[NSMutableAttributedString alloc]initWithString:bb attributes:@{NSForegroundColorAttributeName:KNaviColor}];
     
     [frontText appendAttributedString:lastFour];
     [self.agreementButton setAttributedTitle:frontText forState:UIControlStateNormal];
@@ -158,6 +163,10 @@ static DBNewLoginViewController*loginManager=nil;
 
 //得到手机的openID
 - (IBAction)clickPhoneLogin:(id)sender {
+//    phoneNumber
+//    [KUSERDEFAULT setObject:@"phoneNumber" forKey:AutoLoginType];
+
+    
     //先吊接口得到 手机的openID 并保存到本地
     //在用这个openID 吊用总的登录接口
     if (self.phoneTextField.text.length==11&&self.codeTextField.text.length>=2) {
@@ -166,7 +175,7 @@ static DBNewLoginViewController*loginManager=nil;
         HttpManager*manager=[[HttpManager alloc]init];
         [manager postDataFromNetworkWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
             MyLog(@"%@",data);
-            if ([data[@"errorCode"] integerValue]==0) {
+            if ([data[@"errorCode"] integerValue]==0&&data!=nil) {
                 NSString*open_id=data[@"data"];
                 NSString*platForm=@"phoneNumber";
                 [KUSERDEFAULT setObject:@"phoneNumber" forKey:AutoLoginType];
@@ -279,7 +288,7 @@ static DBNewLoginViewController*loginManager=nil;
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);
-        if ([data[@"errorCode"] integerValue]==0) {
+        if ([data[@"errorCode"] integerValue]==0&&data!=nil) {
             [UserSession saveUserInfoWithDic:data[@"data"]];
             
             

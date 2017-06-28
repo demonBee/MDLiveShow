@@ -31,15 +31,20 @@
 
 
 #pragma 关于时间   这里要区分国际的还是北京的
+//获取当前时间戳有两种方法(以秒为单位)
++(NSString *)getNowTimeTimestamp;
 //一个很全的时间
 +(NSString*)TimeWholeFormat:(NSString*)str;
-//传一个时间 转化为00：00：00
+//传一个时间 转化为00：00：00   扣除了8小时
 +(NSString*)TimeLongFormat:(NSString*)str;
 
 //传一个时间 转化为 17：05：02
 +(NSString*)TimeStartFormat:(NSString*)str;
 
 
-
+//获取视频的时长
++ (NSUInteger)durationWithVideo:(NSURL *)videoUrl;
+// 获取视频第一帧
++ (UIImage*) getVideoPreViewImage:(NSURL *)path;
 
 @end

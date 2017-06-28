@@ -21,6 +21,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *zanButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;   //删除button
+@property(nonatomic,copy)void(^clickDeleteBlock)();
+
 
 @property(nonatomic,strong)VideoModel*mainModel;
 @end

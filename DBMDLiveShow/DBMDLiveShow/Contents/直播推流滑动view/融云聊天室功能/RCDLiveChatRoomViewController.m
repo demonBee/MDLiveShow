@@ -10,7 +10,7 @@
 //#import "RCDLiveMessageCell.h"
 //#import "RCDLiveTextMessageCell.h"
 //#import "RCDLiveGiftMessageCell.h"
-//#import "RCDLiveGiftMessage.h"
+#import "RCDLiveGiftMessage.h"
 
 #import "RCDLiveTipMessageCell.h"
 #import "RCDLiveMessageModel.h"
@@ -30,6 +30,13 @@
 #import "UIView+RCDDanmaku.h"
 #import "RCDDanmaku.h"
 #import "RCDDanmakuManager.h"
+
+
+#import "DBShowInfoView.h"
+#import "NewPersonInfoModel.h"
+#import "NYGiftMainView.h"
+
+
 #define kRandomColor [UIColor colorWithRed:arc4random_uniform(256) / 255.0 green:arc4random_uniform(256) / 255.0 blue:arc4random_uniform(256) / 255.0 alpha:1]
 
 //输入框的高度
@@ -86,6 +93,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
  */
 @property (nonatomic, assign) RCConnectionStatus currentConnectionStatus;
 
+@property(nonatomic,strong)DBShowInfoView*showInfoView;
+@property (nonatomic,weak)NYGiftMainView *giftMainView;
+
 
 @end
 
@@ -102,6 +112,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
  *  小灰条提示cell标示
  */
 static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCellIndentifier";
+
+
+
 
 
 
@@ -130,7 +143,7 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
     self.conversationMessageCollectionView = nil;
     self.targetId = nil;
     [self registerNotification];
-    self.defaultHistoryMessageCountOfChatRoom = 3;
+    self.defaultHistoryMessageCountOfChatRoom = 0;
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
 }
 
@@ -168,14 +181,15 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
 //        RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:text];
 //        [self sendMessage:rcTextMessage pushContent:nil];
         
-        RCInformationNotificationMessage *systemNoti = [[RCInformationNotificationMessage alloc]init];
-        systemNoti.message =text;
-        [self sendMessage:systemNoti pushContent:nil];
+//        RCInformationNotificationMessage *systemNoti = [[RCInformationNotificationMessage alloc]init];
+//        systemNoti.message =text;
+//        [self sendMessage:systemNoti pushContent:nil];
 
         
-        //    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
-        //        giftMessage.type = @"0";
-        //        [self sendMessage:giftMessage pushContent:@"111"];
+        RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
+        giftMessage.giftType=gift;
+        giftMessage.titleStr=text;
+        [self sendMessage:giftMessage pushContent:nil];
         
         
         
@@ -216,6 +230,14 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //礼物
+    NYGiftMainView *mainView = [[NYGiftMainView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 500)];
+    [self.view addSubview:mainView];
+    self.giftMainView = mainView;
+
+    
+    
+    
     //默认进行弹幕缓存，不过量加载弹幕，如果想要同时大批量的显示弹幕，设置为yes，弹幕就不会做弹道检测和缓存
     RCDanmakuManager.isAllowOverLoad = NO;
     
@@ -598,19 +620,25 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
  *
  *  @param model 消息Model
  */
-- (void)pushOldMessageModel:(RCDLiveMessageModel *)model {
-    if (!(!model.content && model.messageId > 0)
-        && !([[model.content class] persistentFlag] & MessagePersistent_ISPERSISTED)) {
-        return;
-    }
-    long ne_wId = model.messageId;
-    for (RCDLiveMessageModel *__item in self.conversationDataRepository) {
-        if (ne_wId == __item.messageId) {
-            return;
-        }
-    }
-    [self.conversationDataRepository insertObject:model atIndex:0];
-}
+//- (void)pushOldMessageModel:(RCDLiveMessageModel *)model {
+//    if (!(!model.content && model.messageId > 0)
+//        && !([[model.content class] persistentFlag] & MessagePersistent_ISPERSISTED)) {
+//        return;
+//    }
+//    long ne_wId = model.messageId;
+//    for (RCDLiveMessageModel *__item in self.conversationDataRepository) {
+//        if (ne_wId == __item.messageId) {
+//            return;
+//        }
+//    }
+//    
+//    if (model.messageId==-1) {
+//        return;
+//    }
+//    
+//    
+//    [self.conversationDataRepository insertObject:model atIndex:0];
+//}
 
 /**
  *  加载历史消息(暂时没有保存聊天室消息)
@@ -726,12 +754,13 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
     RCDLiveMessageModel *model =[self.conversationDataRepository objectAtIndex:indexPath.row];
     RCMessageContent *messageContent = model.content;
     RCDLiveMessageBaseCell *cell = nil;
-//     || [messageContent isMemberOfClass:[RCDLiveGiftMessage class]]
-    if ([messageContent isMemberOfClass:[RCInformationNotificationMessage class]] || [messageContent isMemberOfClass:[RCTextMessage class]]){
+    
+    if ([messageContent isMemberOfClass:[RCInformationNotificationMessage class]] || [messageContent isMemberOfClass:[RCTextMessage class]]|| [messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveTipMessageCell *__cell = [collectionView dequeueReusableCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier forIndexPath:indexPath];
         __cell.isFullScreenMode = YES;
         [__cell setDataModel:model];
         [__cell setDelegate:self];
+        __cell.delegate=self;
         cell = __cell;
     }
     
@@ -779,8 +808,8 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
         return model.cellSize;
     }
     RCMessageContent *messageContent = model.content;
-//     || [messageContent isMemberOfClass:[RCDLiveGiftMessage class]]
-    if ([messageContent isMemberOfClass:[RCTextMessage class]] || [messageContent isMemberOfClass:[RCInformationNotificationMessage class]]) {
+    
+    if ([messageContent isMemberOfClass:[RCTextMessage class]] || [messageContent isMemberOfClass:[RCInformationNotificationMessage class]]|| [messageContent isMemberOfClass:[RCDLiveGiftMessage class]]) {
         model.cellSize = [self sizeForItem:collectionView atIndexPath:indexPath];
     } else {
         return CGSizeZero;
@@ -813,6 +842,14 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
         }
         localizedMessage = [NSString stringWithFormat:@"%@ %@",name,localizedMessage];
     }
+    else if ([messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
+        
+        RCDLiveGiftMessage*notification=(RCDLiveGiftMessage*)messageContent;
+        localizedMessage=notification.titleStr;
+        
+        
+    }
+    
     
 //    else if ([messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
 //        RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)messageContent;
@@ -860,10 +897,17 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
         return;
     }
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
-//    if([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]){
-//        model.messageId = -1;
-//    }
-    
+    if([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]){
+        model.messageId = -1;
+        RCDLiveGiftMessage*content=(RCDLiveGiftMessage*)rcMessage.content;
+        if (!content.titleStr) {
+            return;
+        }
+        
+        
+        
+        
+    }
     if ([self appendMessageModel:model]) {
         NSIndexPath *indexPath =
         [NSIndexPath indexPathForItem:self.conversationDataRepository.count - 1
@@ -879,6 +923,47 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
             self.isNeedScrollToButtom=NO;
         }
     }
+    
+    
+    
+    //接收到的礼物的东西
+    RCMessageContent *content = model.content;
+    if ([content isMemberOfClass:[RCDLiveGiftMessage class]]){
+        
+        RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
+        
+//        //这里有个 type 是送的什么礼物。  然后通过这个写代理出去 跳 礼物第三方框架。
+//        //首先得拿到照片的路径，也就是下边的string参数，转换为NSData型。
+//        NSData* imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:notification.senderUserInfo.portraitUri]];
+//        //然后就是添加照片语句，记得使用imageWithData:方法，不是imageWithName:。
+//        UIImage* resultImage = [UIImage imageWithData: imageData];
+      
+        
+        
+        
+        NSString*userName=notification.senderUserInfo.name;
+        NSString*userImageStr=notification.senderUserInfo.portraitUri;
+        NSString*giftName=notification.giftType;
+        //礼物的图片
+        UIImage*giftImage=[UIImage imageNamed:giftName];
+        
+        
+        NYGiftModel *giftModel = [NYGiftModel new];
+        giftModel.headImageStr =userImageStr;
+        giftModel.name = userName;
+        giftModel.giftImage = giftImage;
+        giftModel.giftName = giftName;
+        giftModel.giftKeyID = [NSString stringWithFormat:@"%@%@",giftModel.name,giftModel.giftName];
+        [self.giftMainView addModel:giftModel];
+        
+        
+        
+    }
+
+    
+    
+    
+    
 }
 
 - (void)sendReceivedDanmaku:(RCMessageContent *)messageContent {
@@ -1042,9 +1127,9 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
                                                                                     direction:MessageDirection_SEND
                                                                                     messageId:messageId
                                                                                       content:messageContent];
-//                                         if ([message.content isMemberOfClass:[RCDLiveGiftMessage class]] ) {
-//                                             message.messageId = -1;//插入消息时如果id是-1不判断是否存在
-//                                         }
+                                         if ([message.content isMemberOfClass:[RCDLiveGiftMessage class]] ) {
+                                             message.messageId = -1;//插入消息时如果id是-1不判断是否存在
+                                         }
                                          [__weakself appendAndDisplayMessage:message];
                                          [__weakself.inputBar clearInputView];
                                      });
@@ -1091,6 +1176,9 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
             [self sendReceivedDanmaku:rcMessage.content];
         });
     }
+    
+    
+    
     
 }
 
@@ -1301,6 +1389,78 @@ static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCel
     [imageView removeFromSuperview];
 }
 
+
+
+- (void)didTapMessageCell:(RCDLiveMessageModel *)model{
+    MyLog(@"%@",model);
+
+        
+        
+    
+
+    
+    RCMessageContent *contentt =model.content;
+    if ([contentt isMemberOfClass:[RCTextMessage class]]){
+        RCTextMessage *notification = (RCTextMessage *)contentt;
+        //            notification.senderUserInfo.userId
+        
+        //吊一个接口得到 该id 所对应的个人信息
+        [self getIDsInfoDatas];
+        
+        
+        
+        
+    }
+    
+        
+    
+
+    
+    
+    
+    
+}
+
+
+-(void)getIDsInfoDatas{
+
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_personCenter];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        
+        if ([data[@"errorCode"] integerValue]==0) {
+            NSDictionary*dict=data[@"data"];
+            
+            NewPersonInfoModel*model=[NewPersonInfoModel yy_modelWithDictionary:dict];
+           
+            //这里需要跳弹窗了
+            self.showInfoView.mainModel=model;
+            [self.showInfoView show];
+
+            
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+            
+        }
+        
+        
+        
+    }];
+
+    
+}
+
+
+
+-(DBShowInfoView *)showInfoView{
+    if (!_showInfoView) {
+        _showInfoView=[DBShowInfoView showInfoViewInView:self.view];
+    }
+    return _showInfoView;
+}
 
 @end
 

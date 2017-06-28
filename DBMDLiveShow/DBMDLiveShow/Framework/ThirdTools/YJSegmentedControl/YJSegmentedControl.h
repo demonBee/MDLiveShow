@@ -27,7 +27,7 @@
 @property (strong, nonatomic) UIFont * titleFont;
 @property (nonatomic, strong) UIColor * buttonDownColor;
 
--(void)selectTheSegument:(NSInteger)segument;
+-(void)selectTheButton:(NSInteger)number;
 //改变button的名字
 -(void)changeButtonName:(NSArray*)buttonTitles;
 

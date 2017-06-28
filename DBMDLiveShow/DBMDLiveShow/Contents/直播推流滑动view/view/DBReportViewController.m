@@ -52,7 +52,7 @@
     cell.textLabel.text=dict[@"title"];
     
     if (indexPath.row==_seletedIndex) {
-        cell.imageView.image=[UIImage imageNamed:DBGetStringWithKeyFromTable(@"L选中", nil)];
+        cell.imageView.image=[UIImage imageNamed:@"选中"];
     }
     
     

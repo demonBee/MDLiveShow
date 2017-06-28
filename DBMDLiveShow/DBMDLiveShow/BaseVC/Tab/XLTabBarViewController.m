@@ -10,7 +10,8 @@
 #import "XLNavigationController.h"
 
 #import "TJPHomePageViewController.h"
-#import "MDSignedShowViewController.h"
+//#import "MDSignedShowViewController.h"
+#import "MDHotelViewController.h"
 #import "PullStreamViewController.h"
 #import "MDRankingViewController.h"
 #import "MDPersonCenterViewController.h"
@@ -38,7 +39,7 @@
     //首页
     [self addChildViewController:[[TJPHomePageViewController alloc] init] notmalimageNamed:@"tabBar0_normal" selectedImage:nil title:DBGetStringWithKeyFromTable(@"L旅游", nil)];
     //签约
-    [self addChildViewController:[[MDSignedShowViewController alloc]initWithtype:showTypeSign] notmalimageNamed:@"tabBar1_normal" selectedImage:nil title:DBGetStringWithKeyFromTable(@"L试播", nil)];
+    [self addChildViewController:[[MDHotelViewController alloc]init] notmalimageNamed:@"tabBar1_normal" selectedImage:nil title:DBGetStringWithKeyFromTable(@"L酒店", nil)];
     
     //直播
     [self addChildViewController:[[PullStreamViewController alloc] init] notmalimageNamed:@"toolbar_live" selectedImage:nil title:nil];

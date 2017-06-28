@@ -9,7 +9,7 @@
 #define USE_BUNDLE_RESOUCE 1
 
 
-
+//正式
 #define RONGCLOUD_IM_APPKEY @"qf3d5gbjqe9kh"
 #define RONGCLOUD_IM_APPSECRET @"vzr6OeOFA9"
 

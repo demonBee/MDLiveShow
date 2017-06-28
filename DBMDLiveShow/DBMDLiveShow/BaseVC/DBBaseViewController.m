@@ -102,6 +102,8 @@
     
     //创建网页内容对象
     //imageStr
+//#warning 1 这个要注释掉
+//    imageStr=@"http://api.zhiboquan.net/Public/Upload/20170410/14917909792094.png";
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:titleStr descr:desStr thumImage:imageStr];
     //设置网页地址
     shareObject.webpageUrl = webStr;
@@ -109,6 +111,8 @@
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
     
+    
+    //我估计是图片没有的问题造成的
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
         

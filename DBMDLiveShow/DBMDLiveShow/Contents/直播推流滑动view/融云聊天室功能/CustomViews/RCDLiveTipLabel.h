@@ -12,7 +12,7 @@
 /*!
  灰条提示Label
  */
-@interface RCDLiveTipLabel : UILabel
+@interface RCDLiveTipLabel : RCDLiveAttributedLabel
 
 /*!
  边缘间隙
