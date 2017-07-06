@@ -23,6 +23,7 @@
 #import "PayRecordViewController.h"   //充值记录
 #import "DBVideoViewController.h"   //我的回放
 #import "MDShortVideoViewController.h"
+#import "DBBlackListViewController.h"
 
 #define CCELL0   @"PersonCenterMainViewCCell"
 #define HEADER   @"MDPCHeaderCollectionReusableView"
@@ -171,6 +172,12 @@
         vc.typee=MDShortVideoTypeMyVedio;
         [self.navigationController pushViewController:vc animated:YES];
         
+    }else if (indexPath.row==9){
+        //我的黑名单
+        DBBlackListViewController*vc=[[DBBlackListViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
     }
     
     
@@ -237,9 +244,10 @@
     NSDictionary*dict7=@{@"image":@"pc_icon7",@"title":DBGetStringWithKeyFromTable(@"L我的回放", nil)};
     NSDictionary*dict8=@{@"image":@"pc_icon8",@"title":DBGetStringWithKeyFromTable(@"L我的短视频", nil)};
     
+    NSDictionary*dict9=@{@"image":@"pc_icon9",@"title":DBGetStringWithKeyFromTable(@"L我的黑名单", nil)};
     
     //,dict3
-    self.collectionViewDatas=@[dict0,dict1,dict2,dict3,dict4,dict5,dict6,dict7,dict8];
+    self.collectionViewDatas=@[dict0,dict1,dict2,dict3,dict4,dict5,dict6,dict7,dict8,dict9];
     
 }
 

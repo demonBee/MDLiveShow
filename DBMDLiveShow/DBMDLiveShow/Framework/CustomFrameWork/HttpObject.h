@@ -10,7 +10,7 @@
 
 
 @interface HttpObject : NSObject
-
-
+//得到融云的header
++(NSDictionary*)getRYRequestHeader;
 
 @end

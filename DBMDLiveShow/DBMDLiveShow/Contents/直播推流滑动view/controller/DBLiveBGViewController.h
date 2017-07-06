@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "NewPersonInfoModel.h"
+#import "RCDLiveChatRoomViewController.h"
 
 
 //两个类型的区别   1. 退出时候不一样。    2. 多了个设置按钮和他的功能。
@@ -30,6 +31,7 @@ typedef NS_ENUM(NSInteger,LiveRoomType){
 @property (nonatomic, strong) NewPersonInfoModel *liveItem;
 
 
-
+/*聊天室VC */
+@property(nonatomic,weak)RCDLiveChatRoomViewController*chatVC;
 
 @end

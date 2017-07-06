@@ -180,6 +180,11 @@ static DBNewLoginViewController*loginManager=nil;
                 NSString*platForm=@"phoneNumber";
                 [KUSERDEFAULT setObject:@"phoneNumber" forKey:AutoLoginType];
                 [KUSERDEFAULT setObject:open_id forKey:PhoneOpenID];
+//                if (!open_id) {
+//                    [JRToast showWithText:@"openid为空"];
+//                    return ;
+//                }
+                
                 [self LoginWithPlatForm:platForm andOpenID:open_id andThirdResult:nil];
                 
                 
@@ -211,6 +216,13 @@ static DBNewLoginViewController*loginManager=nil;
          //这里的uid 才是open_id
         NSString*open_id=resp.uid;
         
+        if (!open_id) {
+            [JRToast showWithText:@"openid为空"];
+            return ;
+        }
+        
+
+        
         [self LoginWithPlatForm:platForm andOpenID:open_id andThirdResult:resp];
         
         
@@ -230,6 +242,13 @@ static DBNewLoginViewController*loginManager=nil;
     [[DBBaseViewController sharedManager]getUMShareDatasWithPlatformType:platForm success:^(UMSocialUserInfoResponse *resp) {
         //这里的uid 才是open_id
         NSString*open_id=resp.uid;
+        
+        if (!open_id) {
+            [JRToast showWithText:@"openid为空"];
+            return ;
+        }
+        
+
         
         [self LoginWithPlatForm:platForm andOpenID:open_id andThirdResult:resp];
         
@@ -251,6 +270,14 @@ static DBNewLoginViewController*loginManager=nil;
     [[DBBaseViewController sharedManager]getUMShareDatasWithPlatformType:platForm success:^(UMSocialUserInfoResponse *resp) {
          //这里的uid 才是open_id
         NSString*open_id=resp.uid;
+        
+        if (!open_id) {
+            [JRToast showWithText:@"openid为空"];
+            return ;
+        }
+        
+
+        
         
         [self LoginWithPlatForm:platForm andOpenID:open_id andThirdResult:resp];
         

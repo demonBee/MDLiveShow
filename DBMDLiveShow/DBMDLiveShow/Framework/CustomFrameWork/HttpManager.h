@@ -30,4 +30,7 @@ typedef void(^resultBlock)(id data,NSError *error);
 
 
 
+//封装的post 带有HTTPRequestHeader
+-(void)postDataAndRequestHeaderNoHudWithUrl:(NSString*)urlString parameters:(id)parameters andRequestHeader:(id)requestHeader compliation:(resultBlock)newBlock;
+
 @end

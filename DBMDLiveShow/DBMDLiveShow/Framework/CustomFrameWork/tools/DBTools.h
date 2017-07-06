@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface DBTools : NSObject
+
+//哈希算法
++ (NSString *)sha1:(NSString *)inputString;
+//得到view 的父视图控制器
++(UIViewController*)getSuperViewWithsubView:(UIView*)subView;
+
+
 //计算文件的尺寸
 +(CGFloat)folderSize;
 
@@ -31,6 +38,7 @@
 
 
 #pragma 关于时间   这里要区分国际的还是北京的
++(NSString*)getTime;
 //获取当前时间戳有两种方法(以秒为单位)
 +(NSString *)getNowTimeTimestamp;
 //一个很全的时间

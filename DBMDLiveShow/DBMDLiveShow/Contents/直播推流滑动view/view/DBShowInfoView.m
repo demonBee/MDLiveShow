@@ -14,6 +14,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *reportButton;
 @property (weak, nonatomic) IBOutlet UIButton *blackButton;
+@property (weak, nonatomic) IBOutlet UIButton *redButton;
+
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *bigImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nickLabel;
@@ -39,7 +42,7 @@
 //我 是否关注了这个人
 @property(nonatomic,assign)BOOL isAttention;
 
-
+@property(nonatomic,weak)UIView*superView;
 @end
 
 @implementation DBShowInfoView
@@ -47,6 +50,7 @@
 +(instancetype)showInfoViewInView:(UIView*)superView{
     DBShowInfoView*pageView=[[NSBundle mainBundle]loadNibNamed:NSStringFromClass(self) owner:nil options:nil].firstObject;
     pageView.frame=CGRectMake(0, 0, KScreenWidth, KScreenHeight);
+    pageView.superView=superView;
     [superView addSubview:pageView];
 
     
@@ -68,6 +72,8 @@
     [super awakeFromNib];
     
     [self.reportButton setTitle:DBGetStringWithKeyFromTable(@"L举报", nil)];
+    [self.blackButton setTitle:DBGetStringWithKeyFromTable(@"L拉黑", nil)];
+    [self.redButton setTitle:DBGetStringWithKeyFromTable(@"L禁言", nil)];
     
      self.hidden=YES;
     self.mainVIew.hidden=YES;
@@ -178,7 +184,13 @@
     [self.homePage setSelected:NO];
     
     
-    self.blackButton.hidden=YES;
+    self.blackButton.hidden=NO;
+    if (self.isLiverTouch) {
+        self.redButton.hidden=NO;
+    }else{
+        self.redButton.hidden=YES;
+    }
+    
     
     self.letterButton.hidden=YES;
     self.artButton.hidden=YES;
@@ -211,6 +223,72 @@
 
 - (IBAction)ToBlack:(id)sender {
     //拉黑
+    NSString*urlStr=[NSString stringWithFormat:@"%@",HTTP_RY_addBlack];
+    NSDictionary*headerDic=[HttpObject getRYRequestHeader];
+//
+    NSDictionary*params=@{@"userId":[UserSession instance].user_id,@"blackUserId":self.mainModel.ID};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataAndRequestHeaderNoHudWithUrl:urlStr parameters:params andRequestHeader:headerDic compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+
+        if ([data[@"code"] integerValue]==200) {
+            [JRToast showWithText:@"拉黑成功，您将看不到对方的信息"];
+            
+        }else{
+            [JRToast showWithText:@"拉黑失败..."];
+        }
+        
+        
+        
+        
+        
+    }];
+    
+    
+    
+}
+- (IBAction)Shutup:(id)sender {
+    //禁言
+    if (!self.isLiverTouch) {
+        return;
+        
+    }
+    
+//    DBSelf(weakSelf);
+//    NSString*aa=[NSString stringWithFormat:@"你确实要禁言%@",self.mainModel.nick];
+//    UIAlertController*alertVC=[UIAlertController alertControllerWithTitle:@"禁言" message:aa preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction*cancel=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//        
+//    }];
+//    UIAlertAction*sure=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//      UITextField*textField=alertVC.textFields.firstObject;
+//        NSString*timeLong=textField.text;
+//        if (timeLong.length<2) {
+//            [JRToast showWithText:@"时间输入错误"];
+//        }
+//        [weakSelf JinyanDatasWithTimeLong:timeLong];
+//        
+//        
+//        
+//        
+//        
+//    }];
+//    [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+//        textField.placeholder=@"请输入禁言时长(分)";
+//        textField.keyboardType=UIKeyboardTypeNumbersAndPunctuation;
+//        
+//    }];
+//    [alertVC addAction:cancel];
+//    [alertVC addAction:sure];
+//    UIViewController*superVC=[DBTools getSuperViewWithsubView:self.superView];
+//    [superVC presentViewController:alertVC animated:YES completion:nil];
+    
+    
+    [self JinyanDatasWithTimeLong:@"1440"];
+    
+    
+    
+    
     
 }
 
@@ -263,6 +341,41 @@
 
 
 #pragma mark  -- getDatas
+//禁言接口
+-(void)JinyanDatasWithTimeLong:(NSString*)timeLong{
+    
+    if ([[UserSession instance].user_id isEqualToString:self.mainModel.ID]) {
+        [JRToast showWithText:@"不能禁言自己"];
+        return;
+    }
+    
+    
+    NSString*urlStr=[NSString stringWithFormat:@"%@",HTTP_RY_addgag];
+    NSDictionary*headerDic=[HttpObject getRYRequestHeader];
+    //    self.mainModel.ID
+    NSDictionary*params=@{@"userId":self.mainModel.ID,@"chatroomId":[UserSession instance].user_id,@"minute":timeLong};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataAndRequestHeaderNoHudWithUrl:urlStr parameters:params andRequestHeader:headerDic compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        
+        if ([data[@"code"] integerValue]==200) {
+            [JRToast showWithText:@"对方已被禁言一天"];
+            
+        }else{
+            [JRToast showWithText:@"禁言失败..."];
+        }
+        
+        
+        
+        
+        
+    }];
+
+    
+}
+
+
+
 //得到用户和主播的关系
 -(void)getUserWithAnchorRelation{
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_UserAndAnchorRelation];
@@ -311,5 +424,17 @@
     }
     return nil;
 }
+
+-(void)setIsLiverTouch:(BOOL)isLiverTouch{
+    _isLiverTouch=isLiverTouch;
+    if (self.isLiverTouch) {
+        self.redButton.hidden=NO;
+    }else{
+        self.redButton.hidden=YES;
+    }
+
+    
+}
+
 
 @end

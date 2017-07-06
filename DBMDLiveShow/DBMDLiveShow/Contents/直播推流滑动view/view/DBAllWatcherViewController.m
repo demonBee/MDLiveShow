@@ -152,6 +152,11 @@
 - (void)clickUser:(NewPersonInfoModel *)model {
     
     self.showInfoView.mainModel=model;
+    if (self.isAnchorClick) {
+        self.showInfoView.isLiverTouch=YES;
+    }else{
+        self.showInfoView.isLiverTouch=NO;
+    }
     [self.showInfoView show];
     
     

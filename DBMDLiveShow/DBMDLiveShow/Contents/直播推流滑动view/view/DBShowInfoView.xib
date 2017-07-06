@@ -259,14 +259,25 @@
                                 <constraint firstItem="mnH-dS-gg2" firstAttribute="top" secondItem="vu7-Oa-fQV" secondAttribute="bottom" constant="15" id="zgD-cd-UtX"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IB1-fh-7Ok">
+                            <rect key="frame" x="119" y="15" width="37" height="34"/>
+                            <state key="normal" title="禁言">
+                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="Shutup:" destination="iN0-l3-epB" eventType="touchUpInside" id="tg5-gQ-abM"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="IB1-fh-7Ok" firstAttribute="leading" secondItem="5QB-Hg-Lu8" secondAttribute="trailing" constant="15" id="1Vy-b5-c1n"/>
                         <constraint firstItem="SJ6-XK-xff" firstAttribute="top" secondItem="pmN-gf-jYM" secondAttribute="bottom" id="4Pz-C9-8KB"/>
                         <constraint firstAttribute="trailing" secondItem="T42-cG-nWS" secondAttribute="trailing" constant="8" id="52x-nl-AFa"/>
                         <constraint firstItem="SJ6-XK-xff" firstAttribute="leading" secondItem="ivO-pl-Fvg" secondAttribute="leading" constant="15" id="6H2-oi-NGc"/>
                         <constraint firstItem="pmN-gf-jYM" firstAttribute="top" secondItem="5g5-IH-gaa" secondAttribute="bottom" id="DLM-hS-bpg"/>
                         <constraint firstItem="5g5-IH-gaa" firstAttribute="top" secondItem="u0i-hG-5Uk" secondAttribute="bottom" constant="20" id="Gvj-VZ-QeC"/>
+                        <constraint firstItem="IB1-fh-7Ok" firstAttribute="centerY" secondItem="5QB-Hg-Lu8" secondAttribute="centerY" id="Iag-C8-8Zq"/>
                         <constraint firstItem="LO9-b4-Cpp" firstAttribute="top" secondItem="SJ6-XK-xff" secondAttribute="bottom" id="LJS-SA-L0f"/>
                         <constraint firstAttribute="height" constant="410" id="Lo8-KF-ld2"/>
                         <constraint firstItem="u0i-hG-5Uk" firstAttribute="top" secondItem="ivO-pl-Fvg" secondAttribute="top" constant="15" id="P9y-Ke-3x1"/>
@@ -306,6 +317,7 @@
                 <outlet property="nickLabel" destination="F37-KY-4P3" id="XMa-iX-NI3"/>
                 <outlet property="payLevel" destination="ff4-ul-hyH" id="u4h-2s-BBa"/>
                 <outlet property="placeLabel" destination="vu7-Oa-fQV" id="zRy-Lg-njg"/>
+                <outlet property="redButton" destination="IB1-fh-7Ok" id="3RZ-q0-jIu"/>
                 <outlet property="reportButton" destination="u0i-hG-5Uk" id="HMY-zv-qg6"/>
                 <outlet property="roomNumber" destination="3L9-PP-naG" id="zly-xM-DRn"/>
                 <outlet property="sexImageView" destination="pv3-3L-yus" id="fyM-ab-iEz"/>

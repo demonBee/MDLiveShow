@@ -13,13 +13,15 @@
 //创建
 +(instancetype)showInfoViewInView:(UIView*)superView;
 
+
 -(void)show;
 -(void)hidden;
 
 
 //赋值
 @property(nonatomic,strong)NewPersonInfoModel*mainModel;
-
+//如果 user_id 等于聊天室的id  那么就有资格禁言了
+@property(nonatomic,assign)BOOL isLiverTouch;
 //关闭
 @property (nonatomic, copy) void(^closeViewBlock)();
 

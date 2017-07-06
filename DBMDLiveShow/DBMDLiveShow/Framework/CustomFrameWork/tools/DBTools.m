@@ -9,9 +9,45 @@
 #import "DBTools.h"
 #import "AdvertiseView.h"   //宏
 #import <AVFoundation/AVFoundation.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 
 @implementation DBTools
+
+#pragma mark  --  哈希算法
+//sha1加密方式
++ (NSString *) sha1:(NSString *)input
+{
+    const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithBytes:cstr length:input.length];
+    
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i=0; i<CC_SHA1_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    return output;
+}
+
+
+//得到view 的父视图控制器
++(UIViewController*)getSuperViewWithsubView:(UIView*)subView{
+    
+    for (UIView* next = [subView superview]; next; next = next.superview) {
+        
+        UIResponder *nextResponder = [next nextResponder];
+        
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            
+            return (UIViewController *)nextResponder;
+        }
+    }
+    
+    return nil;
+}
+
 
 // 缓存大小
 +(CGFloat)folderSize{
@@ -214,6 +250,13 @@
 
 #pragma 关于时间
 //获取当前时间戳有两种方法(以秒为单位)
+
++(NSString*)getTime{
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    return timeSp;
+}
+
 
 +(NSString *)getNowTimeTimestamp{
     

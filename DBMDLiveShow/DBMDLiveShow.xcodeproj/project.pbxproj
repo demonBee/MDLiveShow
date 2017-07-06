@@ -161,7 +161,6 @@
 		C16602461EA0B364005FAFC1 /* STCountDownConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602441EA0B364005FAFC1 /* STCountDownConst.m */; };
 		C16602491EA102B2005FAFC1 /* NewPersonInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602481EA102B2005FAFC1 /* NewPersonInfoModel.m */; };
 		C16B67901ECE871100370839 /* MDShortVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16B678F1ECE871100370839 /* MDShortVideoViewController.m */; };
-		C18682F41ED82785007DCE54 /* lb5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C18682F31ED82785007DCE54 /* lb5.jpg */; };
 		C19067391EBC0961008DB502 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C19067381EBC0961008DB502 /* PayRecordViewController.m */; };
 		C190673D1EBC0B67008DB502 /* PayRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C190673B1EBC0B67008DB502 /* PayRecordTableViewCell.m */; };
 		C190673E1EBC0B67008DB502 /* PayRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C190673C1EBC0B67008DB502 /* PayRecordTableViewCell.xib */; };
@@ -233,6 +232,7 @@
 		C1A51EA61EA5C7E600439692 /* endShowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A51EA51EA5C7E600439692 /* endShowModel.m */; };
 		C1ACB9401EF8BB4A00213B82 /* DBShowInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ACB93F1EF8BB4A00213B82 /* DBShowInfoView.m */; };
 		C1ACB9441EF9203600213B82 /* DBShowInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1ACB9431EF9203600213B82 /* DBShowInfoView.xib */; };
+		C1BF26951F0B6256004200FC /* DBBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BF26941F0B6256004200FC /* DBBlackListViewController.m */; };
 		C1C1B8331EBB1AA900ABB15F /* DBReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C1B8311EBB1AA900ABB15F /* DBReportViewController.m */; };
 		C1CD27AB1EADF4620011C9D8 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CD27AA1EADF4620011C9D8 /* ReplayKit.framework */; };
 		C1CD27AC1EADF4620011C9D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C127D1C51E7B9C020017073E /* UIKit.framework */; };
@@ -653,7 +653,6 @@
 		C16602481EA102B2005FAFC1 /* NewPersonInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPersonInfoModel.m; sourceTree = "<group>"; };
 		C16B678E1ECE871100370839 /* MDShortVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDShortVideoViewController.h; sourceTree = "<group>"; };
 		C16B678F1ECE871100370839 /* MDShortVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDShortVideoViewController.m; sourceTree = "<group>"; };
-		C18682F31ED82785007DCE54 /* lb5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lb5.jpg; sourceTree = "<group>"; };
 		C19067371EBC0961008DB502 /* PayRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordViewController.h; sourceTree = "<group>"; };
 		C19067381EBC0961008DB502 /* PayRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayRecordViewController.m; sourceTree = "<group>"; };
 		C190673A1EBC0B67008DB502 /* PayRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordTableViewCell.h; sourceTree = "<group>"; };
@@ -786,6 +785,8 @@
 		C1ACB93E1EF8BB4A00213B82 /* DBShowInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBShowInfoView.h; sourceTree = "<group>"; };
 		C1ACB93F1EF8BB4A00213B82 /* DBShowInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBShowInfoView.m; sourceTree = "<group>"; };
 		C1ACB9431EF9203600213B82 /* DBShowInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBShowInfoView.xib; sourceTree = "<group>"; };
+		C1BF26931F0B6256004200FC /* DBBlackListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBlackListViewController.h; sourceTree = "<group>"; };
+		C1BF26941F0B6256004200FC /* DBBlackListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBlackListViewController.m; sourceTree = "<group>"; };
 		C1C1B8311EBB1AA900ABB15F /* DBReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBReportViewController.m; sourceTree = "<group>"; };
 		C1C1B8321EBB1AA900ABB15F /* DBReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBReportViewController.h; sourceTree = "<group>"; };
 		C1CD27A91EADF4620011C9D8 /* record.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = record.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1562,6 +1563,7 @@
 				C136D6E01EB07B340081B19E /* 充值 */,
 				C127D1561E770B2F0017073E /* 资料 */,
 				C19067351EBC0925008DB502 /* 充值记录 */,
+				C1BF26921F0B61E4004200FC /* 我的黑名单 */,
 			);
 			path = PersonCenter;
 			sourceTree = "<group>";
@@ -2178,6 +2180,15 @@
 			path = "弹幕";
 			sourceTree = "<group>";
 		};
+		C1BF26921F0B61E4004200FC /* 我的黑名单 */ = {
+			isa = PBXGroup;
+			children = (
+				C1BF26931F0B6256004200FC /* DBBlackListViewController.h */,
+				C1BF26941F0B6256004200FC /* DBBlackListViewController.m */,
+			);
+			path = "我的黑名单";
+			sourceTree = "<group>";
+		};
 		C1CD27AD1EADF4620011C9D8 /* record */ = {
 			isa = PBXGroup;
 			children = (
@@ -2279,7 +2290,6 @@
 		C1CE3FEA1EB8756A00C0D692 /* 轮播图 */ = {
 			isa = PBXGroup;
 			children = (
-				C18682F31ED82785007DCE54 /* lb5.jpg */,
 				C1CE40081EB8789F00C0D692 /* lb3.jpg */,
 				C1CE40091EB8789F00C0D692 /* lb4.jpg */,
 				C1CE400A1EB8789F00C0D692 /* lb2.jpg */,
@@ -2670,7 +2680,6 @@
 				C166023F1EA0AACA005FAFC1 /* DBNewLoginViewController.xib in Resources */,
 				C19AC0E11EBB0BED00842569 /* TJPLivingRoomBottomView.xib in Resources */,
 				C1F0F4CE1E82BAF200C9B34F /* SSCollectionViewCell.xib in Resources */,
-				C18682F41ED82785007DCE54 /* lb5.jpg in Resources */,
 				C1D074211EE64C3900F6E0A0 /* btn_camera_done_b@3x.png in Resources */,
 				C127D1901E770B300017073E /* PersonCenterMainViewCCell.xib in Resources */,
 				C197C4A01EFCB54F005352A1 /* MoviePlayerViewController.xib in Resources */,
@@ -2823,6 +2832,7 @@
 				C127D0DB1E7708C20017073E /* UIImageView+HighlightedWebCache.m in Sources */,
 				C127D0E21E7708C20017073E /* TJPSegementBarVC.m in Sources */,
 				C19AC0DF1EBB0BED00842569 /* DBLivingRoomTopView.m in Sources */,
+				C1BF26951F0B6256004200FC /* DBBlackListViewController.m in Sources */,
 				C16B67901ECE871100370839 /* MDShortVideoViewController.m in Sources */,
 				C16602491EA102B2005FAFC1 /* NewPersonInfoModel.m in Sources */,
 				C1FAF4031EEA822D003D6F16 /* XLTabBarViewController.m in Sources */,

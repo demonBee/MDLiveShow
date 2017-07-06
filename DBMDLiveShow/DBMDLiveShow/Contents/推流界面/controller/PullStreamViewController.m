@@ -406,6 +406,12 @@
         
         NewPersonInfoModel *userItem = notification.userInfo[@"info"];
         self.showInfoView.mainModel=userItem;
+        if ([_BGVC.chatVC.targetId isEqualToString:[UserSession instance].user_id]) {
+            self.showInfoView.isLiverTouch=YES;
+            
+        }else{
+            self.showInfoView.isLiverTouch=NO;
+        }
         [self.showInfoView show];
         
 //        self.userPersonView.mainModel=userItem;
@@ -424,6 +430,14 @@
         NewPersonInfoModel*userItem=notification.userInfo[@"info"];
         DBAllWatcherViewController*vc=[[DBAllWatcherViewController alloc]init];
         vc.mainModel=userItem;
+        if ([_BGVC.chatVC.targetId isEqualToString:[UserSession instance].user_id]) {
+            vc.isAnchorClick=YES;
+            
+        }else{
+            vc.isAnchorClick=NO;
+        }
+
+        
         [self.navigationController pushViewController:vc animated:YES];
         
     }

@@ -12,4 +12,5 @@
 @interface DBAllWatcherViewController : UIViewController
 
 @property(nonatomic,strong)NewPersonInfoModel*mainModel;
+@property(nonatomic,assign)BOOL isAnchorClick;
 @end

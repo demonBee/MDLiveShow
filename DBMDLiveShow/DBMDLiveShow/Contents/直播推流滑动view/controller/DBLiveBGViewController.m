@@ -37,8 +37,7 @@
 @property(nonatomic,weak)DBLivingRoomTopView *topView;
 /** 底部view*/
 @property(nonatomic, weak) TJPLivingRoomBottomView *bottomView;
-/*聊天室VC */
-@property(nonatomic,weak)RCDLiveChatRoomViewController*chatVC;
+
 @property(nonatomic,strong) GiveGiftView*giftView;  //礼物界面
 @property(nonatomic,strong)taskView*taskview;   //任务界面
 #pragma 推流特有的东西

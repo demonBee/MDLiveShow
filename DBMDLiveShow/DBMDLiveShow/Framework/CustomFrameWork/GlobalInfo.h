@@ -57,6 +57,7 @@
 
 
 #define HTTP_personCenter  @"/api.php/User/myBaseInfo/"   //个人中心
+#define HTTP_Many_person   @"/api.php/User/getMultiUserInfo/"  //传入1，2，3 获取多个个人信息
 #define HTTP_appPurchase   @"/api.php/User/iosAppBuy/"   //苹果内购
 #define HTTP_PayRecords    @"/api.php/user/getIosPayLists"   //得到支付列表的接口  充值记录
 #define HTTP_MyVideo       @"/api.php/index/getAnchorVideo"   //我自己的录像的接口
@@ -87,5 +88,24 @@
 #define HTTP_DEL_One_MeiPai   @"/api.php/meipai/del"   //删除美拍
 
 #define HTTP_ShareVideoAndMeiPai    @"/api.php/meipai/share"    //type 1为直播分享 2为美拍分享
+
+
+
+
+//融云的接口
+
+//增加黑名单    userId      blackUserId
+#define HTTP_RY_addBlack      @"http://api.cn.ronghub.com/user/blacklist/add.json"
+//移除黑名单用户    userId    blackUserId
+#define HTTP_RY_removeBlack   @"http://api.cn.ronghub.com/user/blacklist/remove.json"
+//获取某用户 黑名单列表    userId
+#define HTTP_RY_blackList     @"http://api.cn.ronghub.com/user/blacklist/query.json"
+
+//聊天室禁言  userId   chatroomId   minute
+#define HTTP_RY_addgag          @"http://api.cn.ronghub.com/chatroom/user/gag/add.json"
+//移除禁言userId   chatroomId
+#define HTTP_RY_removegag       @"http://api.cn.ronghub.com/chatroom/user/gag/rollback.json"
+//禁言的列表   chatroomId
+#define HTTP_RY_gagList         @"http://api.cn.ronghub.com/chatroom/user/gag/list.json"
 
 #endif /* GlobalInfo_h */

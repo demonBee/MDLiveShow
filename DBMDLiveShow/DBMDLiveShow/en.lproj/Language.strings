@@ -171,7 +171,9 @@
 "L手机号输入有误"="phone number input error";
 "L请上传正面图"="upload the front image";
 "L请上传反面图"="upload the back image";
-"L举报"="report";
+"L举报"="Report";
+"L拉黑"="ToBlack";
+"L禁言"="Gag";
 "L选择举报原因"="select the reason for reporting";
 "L确认举报"="confirm report";
 "L请先选择举报类型"="select the type of report";
@@ -190,6 +192,7 @@
 "L充值记录"="recharge record";
 "L我的回放"="my replay";
 "L我的短视频"="my shortVideo";
+"L我的黑名单"="my blackList";
 "L土豪榜"="richer list";
 "L主播榜"="host list";
 "L日榜"="daily";

@@ -276,5 +276,57 @@
 }
 
 
+//封装的post 带有HTTPRequestHeader
+-(void)postDataAndRequestHeaderNoHudWithUrl:(NSString*)urlString parameters:(id)parameters andRequestHeader:(id)requestHeader compliation:(resultBlock)newBlock{
+    self.block=newBlock;
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html",@"text/plain",nil];
+    
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];//请求
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];//响应
+    AFSecurityPolicy *security = [AFSecurityPolicy defaultPolicy];
+    security.allowInvalidCertificates = YES;
+    security.validatesDomainName = NO;
+    manager.securityPolicy = security;
+    
+    
+    NSDictionary*headerDic=requestHeader;
+    [headerDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [manager.requestSerializer setValue:obj forHTTPHeaderField:key];
+        
+        
+    }];
+    
+    
+    [manager POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([responseObject isKindOfClass:[NSData class]]) {
+            NSDictionary*jsonData=[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
+            self.block(jsonData,nil);
+            
+        }else{
+            self.block(responseObject, nil);
+        }
+        
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"Error: %@", error);
+        self.block(nil,error);
+        [JRToast showWithText:@"连接超时,请检查网络" bottomOffset:70*KScreenWidth/320 duration:3.0f];
+        
+    }];
+    
+    
+    
+    
+    
+}
+
+
+
 
 @end
