@@ -9,6 +9,7 @@
 #import "MDHotelViewController.h"
 #import "TJPSegementBarVC.h"
 
+#import "DBChooseHotelShowView.h"
 #import "DBVideoViewController.h"      //回放
 #import "MDShortVideoViewController.h"   //短视频
 
@@ -16,6 +17,11 @@
 @interface MDHotelViewController ()
 
 @property (nonatomic, weak) TJPSegementBarVC *segementBarVC;
+
+@property(nonatomic,strong)DBChooseHotelShowView*hotelShowView;
+@property(nonatomic,strong)NSMutableArray*saveCityArray;
+@property(nonatomic,strong)NSString*cityName;
+@property(nonatomic,strong)NSString*city_id;
 
 
 @property(nonatomic,strong)NSMutableArray*searchTitleArray;
@@ -32,6 +38,9 @@
 
     
       [self setupNavigationTitleView];
+    [self creatLeftTopNavi];
+    [self getcityDatas];
+    
 }
 
 -(void)viewDidLayoutSubviews{
@@ -40,6 +49,17 @@
     
 }
 
+
+-(void)creatLeftTopNavi{
+    UIButton*leftButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 20)];
+    [leftButton setTitle:DBGetStringWithKeyFromTable(@"L全部", nil)];
+    leftButton.titleLabel.font=[UIFont systemFontOfSize:14];
+    [leftButton addTarget:self action:@selector(clickLeftItem:)];
+    UIBarButtonItem*item=[[UIBarButtonItem alloc]initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem=item;
+    
+    
+}
 
 - (void)setupNavigationTitleView {
     
@@ -77,6 +97,57 @@
 }
 
 
+#pragma mark  --click
+-(void)clickLeftItem:(UIButton*)sender{
+    [self.hotelShowView getValue:self.saveCityArray];
+    [self.hotelShowView show];
+    DBSelf(weakSelf);
+    self.hotelShowView.clickCityBlock = ^(chooseCityModel *mainModel) {
+//        weakSelf.city_id=mainModel.city_id;
+//        weakSelf.cityName=mainModel.city_name;
+        
+        NSDictionary*dict=@{@"city_name":mainModel.city_name,@"city_id":mainModel.city_id};
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"chooseCity" object:nil userInfo:dict];
+        
+        [sender setTitle:mainModel.city_name];
+        
+        
+    };
+    
+
+    
+    
+}
+
+
+#pragma mark  --datas
+-(void)getcityDatas{
+   self.saveCityArray=[NSMutableArray array];
+    
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_CountryCityList];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            NSArray*array=data[@"data"];
+            for (NSDictionary*dict in array) {
+                chooseCityModel*model=[chooseCityModel yy_modelWithDictionary:dict];
+                
+                [self.saveCityArray addObject:model];
+            }
+
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+        }
+        
+        
+    }];
+
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -105,5 +176,13 @@
     return _segementBarVC;
 }
 
+
+-(DBChooseHotelShowView *)hotelShowView{
+    if (!_hotelShowView) {
+        _hotelShowView=[DBChooseHotelShowView chooseHotelShowView];
+        [[UIApplication sharedApplication].keyWindow addSubview:_hotelShowView];
+    }
+    return _hotelShowView;
+}
 
 @end

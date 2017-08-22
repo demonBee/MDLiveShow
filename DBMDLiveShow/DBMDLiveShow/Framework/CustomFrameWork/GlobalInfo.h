@@ -48,6 +48,7 @@
 #define HTTP_RoomNameCity    @"/api.php/Zhibo/readyAnchor/"  //改变房间名和城市
 #define HTTP_endLive        @"/api.php/Zhibo/endAnchor/"   //主播结束直播
 #define HTTP_RealName       @"/api.php/User/idenAnchorInfo/"  //实名认证
+#define HTTP_CountryCityList     @"/api.php/City/index"  //国家城市选择列表
 
 
 

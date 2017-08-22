@@ -92,6 +92,7 @@
 
 
 //首页
+"L全部"="Total";
 "L跳过%d"="skip %d";
 "L活动"="activity";
 "L房间号:%@"="room number:%@";

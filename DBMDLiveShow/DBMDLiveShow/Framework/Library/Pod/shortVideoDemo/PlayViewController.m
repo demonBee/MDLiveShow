@@ -9,6 +9,7 @@
 #import "PlayViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Qiniu/QiniuSDK.h>
+#import "DBChooseHotelShowView.h"
 
 #define PLS_SCREEN_WIDTH CGRectGetWidth([UIScreen mainScreen].bounds)
 #define PLS_SCREEN_HEIGHT CGRectGetHeight([UIScreen mainScreen].bounds)
@@ -18,7 +19,7 @@
 //static NSString *const kUploadToken = @"MqF35-H32j1PH8igh-am7aEkduP511g-5-F7j47Z:0gzBOkhm3KsFGbGk2HdKfA4jZp4=:eyJzY29wZSI6InNob3J0LXZpZGVvIiwiZGVhZGxpbmUiOjE2NTA3MTExMDcsInVwaG9zdHMiOlsiaHR0cDovL3VwLXoyLnFpbml1LmNvbSIsImh0dHA6Ly91cGxvYWQtejIucWluaXUuY29tIiwiLUggdXAtejIucWluaXUuY29tIGh0dHA6Ly8xODMuNjAuMjE0LjE5OCJdfQ==";
 //static NSString *const kURLPrefix = @"http://oowtvx1xy.bkt.clouddn.com";
 
-@interface PlayViewController ()
+@interface PlayViewController ()<UITextFieldDelegate>
 
 @property (strong, nonatomic) UIButton *backButton;
 @property (strong, nonatomic) AVPlayer *player;
@@ -38,6 +39,12 @@
 @property(nonatomic,strong)NSString*uploadToken;
 @property(nonatomic,strong)NSString*urlPrefix;
 
+
+@property(nonatomic,strong)DBChooseHotelShowView*hotelShowView;
+@property(nonatomic,strong)UITextField*cityTextField;
+@property(nonatomic,strong)NSMutableArray*saveCityArray;
+@property(nonatomic,strong)NSString*cityName;
+@property(nonatomic,strong)NSString*city_id;
 
 @end
 
@@ -145,6 +152,16 @@
 }
 
 - (void)WriteInfo{
+    
+    //先选择城市， 后在里面确定内容上传。
+    [self clickChooseCity];
+
+    
+    
+}
+
+
+-(void)showAlertVC{
     UIAlertController*alertVC=[UIAlertController alertControllerWithTitle:@"上传短视频" message:@"完善短视频信息" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction*sure=[UIAlertAction actionWithTitle:@"提交" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField*titleTF=alertVC.textFields[0];
@@ -175,13 +192,22 @@
         textField.placeholder=@"请输入视频标题";
         
     }];
+    
+    
+    
+    
     [alertVC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder=@"请输入所在城市";
+        textField.placeholder=@"请选择所在城市";
+        self.cityTextField=textField;
+        self.cityTextField.enabled=NO;
+        self.cityTextField.text=self.cityName;
+
+        
     }];
     
     [self presentViewController:alertVC animated:YES completion:nil];
-
     
+
     
 }
 
@@ -228,7 +254,7 @@
             [self showAlertWithMessage:[NSString stringWithFormat:@"上传失败，error: %@", info.error]];
             return ;
         }
-        
+//        self.urlPrefix=@"http://meipai.zhiboquan.net";
         NSString *urlString = [NSString stringWithFormat:@"%@//%@", _urlPrefix, key];
         
 //        [self addAlertTextFiledAndPut:urlString];
@@ -331,7 +357,8 @@
 
 -(void)InputInfoWithVideoStr:(NSString*)videoAddress andTitle:(NSString*)titleStr andCity:(NSString*)cityStr andTime:(NSString*)currentTimeStamp andVideoLong:(NSString*)videoLong andVideoImage:(NSString*)videoImage{
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_giveService];
-    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"title":titleStr,@"url":videoAddress,@"snapshot_img":videoImage,@"location":cityStr,@"duration":videoLong,@"send_time":currentTimeStamp};
+    
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"title":titleStr,@"url":videoAddress,@"snapshot_img":videoImage,@"location":cityStr,@"city_id":self.city_id,@"duration":videoLong,@"send_time":currentTimeStamp};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);
@@ -358,8 +385,83 @@
     
     
 }
+-(DBChooseHotelShowView *)hotelShowView{
+    if (!_hotelShowView) {
+        _hotelShowView=[DBChooseHotelShowView chooseHotelShowView];
+        [[UIApplication sharedApplication].keyWindow addSubview:_hotelShowView];
+    }
+    return _hotelShowView;
+}
+
+-(NSMutableArray *)saveCityArray{
+    if (!_saveCityArray) {
+        _saveCityArray=[NSMutableArray array];
+    }
+    return _saveCityArray;
+}
+
+#pragma mark  -- click
+-(void)clickChooseCity{
+    [self.saveCityArray removeAllObjects];
+    
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_CountryCityList];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            NSArray*array=data[@"data"];
+            for (NSDictionary*dict in array) {
+                chooseCityModel*model=[chooseCityModel yy_modelWithDictionary:dict];
+                
+                [self.saveCityArray addObject:model];
+            }
+            
+            
+            [self.hotelShowView getValue:self.saveCityArray];
+            [self.hotelShowView show];
+            DBSelf(weakSelf);
+            self.hotelShowView.clickCityBlock = ^(chooseCityModel *mainModel) {
+                        weakSelf.city_id=mainModel.city_id;
+                        weakSelf.cityName=mainModel.city_name;
+                //
+                //        //显示下
+//                        weakSelf.cityTextField.text=weakSelf.cityName;
+                [weakSelf showAlertVC];
+                
+            };
+
+            
+            
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+        }
+        
+        
+    }];
+
+    
+    
+   
+    
+}
 
 
-
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+//    //写你要实现的：页面跳转的相关代码
+////    [textField becomeFirstResponder];
+//    if ([textField isEqual:self.cityTextField]) {
+////        [textField resignFirstResponder];
+////        [[DBTools findFirstResponderBeneathView:self.view] resignFirstResponder];
+//        [self clickChooseCity];
+//        
+//        
+//        
+//         return YES;
+//    }
+//    return YES;
+//   
+//}
 
 @end

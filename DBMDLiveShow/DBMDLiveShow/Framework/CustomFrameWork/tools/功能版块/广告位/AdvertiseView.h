@@ -11,7 +11,13 @@
 #define kscreenHeight [UIScreen mainScreen].bounds.size.height
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
 static NSString *const adImageName = @"adImageName";
-static NSString *const adUrl = @"adUrl";
+static NSString *const adUrl = @"adImageUrl";
+
+static NSString*const TypeImageOrVideo   =@"TypeImageOrVideo";   //1是图片 2是类型
+static NSString*const videoAddress =@"videoAddress";
+static NSString*const videoLink  =@"videoLink";
+
+
 @interface AdvertiseView : UIView
 
 /** 显示广告页面方法*/

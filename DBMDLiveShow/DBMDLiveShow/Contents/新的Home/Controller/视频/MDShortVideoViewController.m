@@ -30,6 +30,13 @@
 //我的视频里面 删除判断
 @property(nonatomic,assign)BOOL isDelete;
 
+
+
+
+//这两个筛选 有值的时候 是筛选了   酒店专用
+@property(nonatomic,strong)NSString*city_name;
+@property(nonatomic,strong)NSString*city_id;
+
 @end
 
 @implementation MDShortVideoViewController
@@ -87,6 +94,13 @@
     
     
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"chooseCity" object:nil];
+
+}
+
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"chooseCity" object:nil];
     
 }
 
@@ -264,6 +278,20 @@
 
 
 #pragma mark  --touch
+
+-(void)receiveNotification:(NSNotification*)notification{
+    if (self.typee==MDShortVideoTypeHotel) {
+        NSDictionary*dict=notification.userInfo;
+        self.city_name=dict[@"city_name"];
+        self.city_id=dict[@"city_id"];
+        
+        [self.collectionView.mj_header beginRefreshing];
+        
+    }
+    
+}
+
+
 -(void)clickDelete:(UIButton*)sender{
     if (!sender.selected) {
         sender.selected=YES;
@@ -382,7 +410,13 @@
     
     
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_HotelMeiPai];
-    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages,@"type":@"2"};
+    NSDictionary*par=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages,@"type":@"2"};
+    NSMutableDictionary*params=[NSMutableDictionary dictionaryWithDictionary:par];
+    if (self.city_id) {
+        [params setObject:self.city_id forKey:@"city_id"];
+    }
+
+    
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);

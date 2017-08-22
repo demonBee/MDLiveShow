@@ -16,11 +16,13 @@
 #import "DBLiveBGViewController.h"
 //#import "DBUserPersonView.h"
 #import "DBShowInfoView.h"
-
+#import "DBChooseHotelShowView.h"   //展示选择城市的视图
 
 #import "DBAllWatcherViewController.h"
 #import "DBRealNameViewController.h"   //实名认证界面
 #import "RecordViewController.h"  // 美拍入口
+
+
 
 
 #pragma 从相册中选择
@@ -31,6 +33,12 @@
 
 
 @interface PullStreamViewController ()<PLMediaStreamingSessionDelegate,TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+
+@property(nonatomic,strong)DBChooseHotelShowView*hotelShowView;   //展示选择城市的视图
+@property(nonatomic,strong)NSMutableArray*saveCityArray;  //保存所有的城市的array
+@property(nonatomic,strong)NSString*cityName;
+@property(nonatomic,strong)NSString*city_id;
 
 @property(nonatomic,strong)NewPersonInfoModel *liveItem;  //自己的直播间的所有数据
 @property(nonatomic,strong)NSURL*url;   //推流的地址
@@ -43,7 +51,7 @@
 @property(nonatomic,strong)UIView*startView;
 @property(nonatomic,strong)UIButton*pullStreamButton;
 @property(nonatomic,strong)UITextField*roomTextField;
-@property(nonatomic,strong)UITextField*cityTextField;
+@property(nonatomic,strong)UIButton*cityButton;
 @property(nonatomic,strong)UISwitch*recordSwitch;
 
 @property(nonatomic,strong)DBLiveBGViewController*BGVC;   //可滑动view
@@ -75,7 +83,10 @@
     [self getPullStreamAddress];
     //得到该主播的所有信息
     [self getMyRoomInfoDatas];
-
+    //得到选择的城市
+    [self getAllCountryAndHotel];
+    
+    
     //观察者 用于跳弹窗
     [self addObserve];
     
@@ -129,11 +140,18 @@
     [startView addSubview:roomName];
     self.roomTextField=roomName;
     
-    UITextField*cityName=[[UITextField alloc]initWithFrame:CGRectMake(60, 160, KScreenWidth-120, 40)];
-    cityName.borderStyle=UITextBorderStyleRoundedRect;
-    cityName.placeholder=DBGetStringWithKeyFromTable(@"L请输入城市名", nil);
+    UIButton*cityName=[[UIButton alloc]initWithFrame:CGRectMake(60, 160, KScreenWidth-120, 40)];
+//    cityName.borderStyle=UITextBorderStyleRoundedRect;
+//    cityName.placeholder=DBGetStringWithKeyFromTable(@"L请输入城市名", nil);
+    cityName.titleLabel.textAlignment=NSTextAlignmentLeft;
+    cityName.layer.borderColor=[UIColor whiteColor].CGColor;
+    cityName.layer.borderWidth=1;
+    cityName.layer.cornerRadius=6;
+    cityName.layer.masksToBounds=YES;
+    [cityName setTitle:DBGetStringWithKeyFromTable(@"L请选择城市酒店", nil)];
+    [cityName addTarget:self action:@selector(clickChooseCity:) forControlEvents:UIControlEventTouchUpInside];
     [startView addSubview:cityName];
-    self.cityTextField=cityName;
+    self.cityButton=cityName;
     
     //录像
     UILabel*titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(60, 220, 150, 40)];
@@ -487,7 +505,12 @@
             self.is_real=data[@"data"][@"is_real"];
             self.tips=data[@"data"][@"tips"];
             //给两个textField 赋值
-            self.cityTextField.text=data[@"data"][@"city"];
+//            self.cityButton.text=data[@"data"][@"city"];
+//            [self.cityButton setTitle:data[@"data"][@"city"]];
+            self.cityName=data[@"data"][@"city"];
+            self.city_id=data[@"data"][@"city_id"];
+            
+            [self.cityButton setTitle:self.cityName];
             self.roomTextField.text=data[@"data"][@"room_name"];
  
             
@@ -530,7 +553,7 @@
 //传房间名和城市
 -(void)DatasRoomNameAndCityName{
     NSString*roomName=self.roomTextField.text;
-    NSString*cityName=self.cityTextField.text;
+    NSString*cityName=self.cityButton.titleLabel.text;
     if (!roomName) {
         roomName=[NSString stringWithFormat:DBGetStringWithKeyFromTable(@"L%@的直播间", nil),self.liveItem.nick];
     }
@@ -546,7 +569,7 @@
     
     
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_RoomNameCity];
-    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"anchor_id":[UserSession instance].user_id,@"city":cityName,@"room_name":roomName,@"is_video":switchOn};
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"anchor_id":[UserSession instance].user_id,@"city":cityName,@"city_id":self.city_id,@"room_name":roomName,@"is_video":switchOn};
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);
@@ -566,7 +589,52 @@
 }
 
 
+-(void)getAllCountryAndHotel{
+    NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_CountryCityList];
+    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id};
+    HttpManager*manager=[[HttpManager alloc]init];
+    [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
+        MyLog(@"%@",data);
+        if ([data[@"errorCode"] integerValue]==0) {
+            NSArray*array=data[@"data"];
+            for (NSDictionary*dict in array) {
+                chooseCityModel*model=[chooseCityModel yy_modelWithDictionary:dict];
+                
+                [self.saveCityArray addObject:model];
+            }
+            
+            
+            
+        }else{
+            [JRToast showWithText:data[@"errorMessage"]];
+        }
+        
+        
+    }];
+
+    
+}
+
+
 #pragma mark  --set
+-(NSMutableArray *)saveCityArray{
+    if (!_saveCityArray) {
+        _saveCityArray=[NSMutableArray array];
+    }
+    return _saveCityArray;
+}
+
+
+
+-(DBChooseHotelShowView *)hotelShowView{
+    if (!_hotelShowView) {
+        _hotelShowView=[DBChooseHotelShowView chooseHotelShowView];
+        [[UIApplication sharedApplication].keyWindow addSubview:_hotelShowView];
+    }
+    return _hotelShowView;
+}
+
+
 -(DBLiveBGViewController *)BGVC{
     if (!_BGVC) {
         _BGVC=[[DBLiveBGViewController alloc]initWithDatas:nil andliveType:LiveRoomTypeShow andSuperVC:self];
@@ -629,6 +697,61 @@
     return _imagePickerVc;
 }
 
+
+#pragma mark  --touch
+-(void)clickChooseCity:(UIButton*)sender{
+    if (self.saveCityArray.count<1) {
+        [JRToast showWithText:@"网络慢，请稍等"];
+        return;
+    }
+    
+    [self.hotelShowView getValue:self.saveCityArray];
+    [self.hotelShowView show];
+    DBSelf(weakSelf);
+    self.hotelShowView.clickCityBlock = ^(chooseCityModel *mainModel) {
+        weakSelf.city_id=mainModel.city_id;
+        weakSelf.cityName=mainModel.city_name;
+        
+        //显示下
+        [weakSelf.cityButton setTitle:weakSelf.cityName];
+        
+    };
+    
+    
+    
+
+
+    
+    
+    
+    
+}
+
+
+-(NSMutableArray*)getFalueCityDatas{
+    NSMutableDictionary*county0=[NSMutableDictionary dictionaryWithDictionary:@{@"city_name":@"中国",@"city_id":@"0"}];
+    NSMutableDictionary*city00=[NSMutableDictionary dictionaryWithDictionary:@{@"city_name":@"丽江",@"city_id":@"00"}];
+     NSMutableDictionary*city01=[NSMutableDictionary dictionaryWithDictionary:@{@"city_name":@"成都",@"city_id":@"01"}];
+    [county0 setObject:@[city00,city01] forKey:@"content"];
+      NSMutableDictionary*hotel000=[NSMutableDictionary dictionaryWithDictionary:@{@"city_name":@"pullman酒店",@"city_id":@"000"}];
+     NSMutableDictionary*hotel001=[NSMutableDictionary dictionaryWithDictionary:@{@"city_name":@"希尔顿酒店",@"city_id":@"001"}];
+    [city00 setObject:@[hotel000,hotel001] forKey:@"content"];
+    
+    
+    NSMutableDictionary*county1=[NSMutableDictionary dictionaryWithDictionary:@{@"city_name":@"泰国",@"city_id":@"1"}];
+    
+    
+    
+    
+
+    //总的城市列表
+    NSMutableArray*allArray=[NSMutableArray arrayWithObjects:county0,county1, nil];
+    
+    return allArray;
+    
+    
+    
+}
 
 
 #pragma mark  隐藏键盘

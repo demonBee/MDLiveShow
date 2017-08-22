@@ -161,6 +161,9 @@
 		C16602461EA0B364005FAFC1 /* STCountDownConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602441EA0B364005FAFC1 /* STCountDownConst.m */; };
 		C16602491EA102B2005FAFC1 /* NewPersonInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C16602481EA102B2005FAFC1 /* NewPersonInfoModel.m */; };
 		C16B67901ECE871100370839 /* MDShortVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16B678F1ECE871100370839 /* MDShortVideoViewController.m */; };
+		C18894441F4A33CE004FD861 /* DBChooseHotelShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C18894431F4A33CE004FD861 /* DBChooseHotelShowView.m */; };
+		C18894461F4A33E0004FD861 /* DBChooseHotelShowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C18894451F4A33E0004FD861 /* DBChooseHotelShowView.xib */; };
+		C18894491F4A4417004FD861 /* chooseCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C18894481F4A4417004FD861 /* chooseCityModel.m */; };
 		C19067391EBC0961008DB502 /* PayRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C19067381EBC0961008DB502 /* PayRecordViewController.m */; };
 		C190673D1EBC0B67008DB502 /* PayRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C190673B1EBC0B67008DB502 /* PayRecordTableViewCell.m */; };
 		C190673E1EBC0B67008DB502 /* PayRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C190673C1EBC0B67008DB502 /* PayRecordTableViewCell.xib */; };
@@ -327,6 +330,9 @@
 		C1DBB8901EA8A1B60058D7D4 /* VedioCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DBB88E1EA8A1B60058D7D4 /* VedioCollectionViewCell.m */; };
 		C1DBB8911EA8A1B60058D7D4 /* VedioCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1DBB88F1EA8A1B60058D7D4 /* VedioCollectionViewCell.xib */; };
 		C1E5A6741E8EC18300E77B98 /* TopImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E5A6731E8EC18300E77B98 /* TopImageButton.m */; };
+		C1E690781F29868400D3C2DC /* HSDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E690721F29868400D3C2DC /* HSDownloadManager.m */; };
+		C1E690791F29868400D3C2DC /* HSSessionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E690741F29868400D3C2DC /* HSSessionModel.m */; };
+		C1E6907A1F29868400D3C2DC /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E690771F29868400D3C2DC /* NSString+Hash.m */; };
 		C1F0F4CC1E82BAF200C9B34F /* MDSignedShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F4C61E82BAF200C9B34F /* MDSignedShowViewController.m */; };
 		C1F0F4CD1E82BAF200C9B34F /* SSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0F4CA1E82BAF200C9B34F /* SSCollectionViewCell.m */; };
 		C1F0F4CE1E82BAF200C9B34F /* SSCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1F0F4CB1E82BAF200C9B34F /* SSCollectionViewCell.xib */; };
@@ -653,6 +659,11 @@
 		C16602481EA102B2005FAFC1 /* NewPersonInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPersonInfoModel.m; sourceTree = "<group>"; };
 		C16B678E1ECE871100370839 /* MDShortVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDShortVideoViewController.h; sourceTree = "<group>"; };
 		C16B678F1ECE871100370839 /* MDShortVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDShortVideoViewController.m; sourceTree = "<group>"; };
+		C18894421F4A33CE004FD861 /* DBChooseHotelShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBChooseHotelShowView.h; sourceTree = "<group>"; };
+		C18894431F4A33CE004FD861 /* DBChooseHotelShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBChooseHotelShowView.m; sourceTree = "<group>"; };
+		C18894451F4A33E0004FD861 /* DBChooseHotelShowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBChooseHotelShowView.xib; sourceTree = "<group>"; };
+		C18894471F4A4417004FD861 /* chooseCityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chooseCityModel.h; sourceTree = "<group>"; };
+		C18894481F4A4417004FD861 /* chooseCityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chooseCityModel.m; sourceTree = "<group>"; };
 		C19067371EBC0961008DB502 /* PayRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordViewController.h; sourceTree = "<group>"; };
 		C19067381EBC0961008DB502 /* PayRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayRecordViewController.m; sourceTree = "<group>"; };
 		C190673A1EBC0B67008DB502 /* PayRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayRecordTableViewCell.h; sourceTree = "<group>"; };
@@ -911,6 +922,12 @@
 		C1DBB88F1EA8A1B60058D7D4 /* VedioCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VedioCollectionViewCell.xib; sourceTree = "<group>"; };
 		C1E5A6721E8EC18300E77B98 /* TopImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopImageButton.h; sourceTree = "<group>"; };
 		C1E5A6731E8EC18300E77B98 /* TopImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopImageButton.m; sourceTree = "<group>"; };
+		C1E690711F29868400D3C2DC /* HSDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDownloadManager.h; sourceTree = "<group>"; };
+		C1E690721F29868400D3C2DC /* HSDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDownloadManager.m; sourceTree = "<group>"; };
+		C1E690731F29868400D3C2DC /* HSSessionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSSessionModel.h; sourceTree = "<group>"; };
+		C1E690741F29868400D3C2DC /* HSSessionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSSessionModel.m; sourceTree = "<group>"; };
+		C1E690761F29868400D3C2DC /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
+		C1E690771F29868400D3C2DC /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		C1F0F4C51E82BAF200C9B34F /* MDSignedShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDSignedShowViewController.h; sourceTree = "<group>"; };
 		C1F0F4C61E82BAF200C9B34F /* MDSignedShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDSignedShowViewController.m; sourceTree = "<group>"; };
 		C1F0F4C91E82BAF200C9B34F /* SSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1501,6 +1518,11 @@
 		C127D1011E770B2F0017073E /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C18894421F4A33CE004FD861 /* DBChooseHotelShowView.h */,
+				C18894431F4A33CE004FD861 /* DBChooseHotelShowView.m */,
+				C18894451F4A33E0004FD861 /* DBChooseHotelShowView.xib */,
+				C18894471F4A4417004FD861 /* chooseCityModel.h */,
+				C18894481F4A4417004FD861 /* chooseCityModel.m */,
 				C16602191EA06B2A005FAFC1 /* ShowLiveResultView.h */,
 				C166021A1EA06B2A005FAFC1 /* ShowLiveResultView.m */,
 				C127D1051E770B2F0017073E /* ShowLiveResultView.xib */,
@@ -1778,6 +1800,7 @@
 			children = (
 				C197C4971EFCB08E005352A1 /* PlayerViewController */,
 				C1FAF4041EEA82E3003D6F16 /* In-App Purchase */,
+				C1E690701F29868400D3C2DC /* HSDownloadManager */,
 				C1CE40011EB877BF00C0D692 /* 广告位 */,
 				C1CE3FBE1EB8724C00C0D692 /* 引导页功能 */,
 				C1CE3FBA1EB8592C00C0D692 /* webView功能 */,
@@ -2435,6 +2458,27 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		C1E690701F29868400D3C2DC /* HSDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				C1E690711F29868400D3C2DC /* HSDownloadManager.h */,
+				C1E690721F29868400D3C2DC /* HSDownloadManager.m */,
+				C1E690731F29868400D3C2DC /* HSSessionModel.h */,
+				C1E690741F29868400D3C2DC /* HSSessionModel.m */,
+				C1E690751F29868400D3C2DC /* MD5 */,
+			);
+			path = HSDownloadManager;
+			sourceTree = "<group>";
+		};
+		C1E690751F29868400D3C2DC /* MD5 */ = {
+			isa = PBXGroup;
+			children = (
+				C1E690761F29868400D3C2DC /* NSString+Hash.h */,
+				C1E690771F29868400D3C2DC /* NSString+Hash.m */,
+			);
+			path = MD5;
+			sourceTree = "<group>";
+		};
 		C1F0F4C31E82BAF200C9B34F /* 直播 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2726,6 +2770,7 @@
 				C1D074191EE64C3900F6E0A0 /* btn_bar_next_b@3x.png in Resources */,
 				C1D074151EE64C3900F6E0A0 /* btn_bar_back_b@3x.png in Resources */,
 				C1D074331EE64C3900F6E0A0 /* Effects4.png in Resources */,
+				C18894461F4A33E0004FD861 /* DBChooseHotelShowView.xib in Resources */,
 				C1D0743E1EE64C3900F6E0A0 /* video_play.png in Resources */,
 				C190673E1EBC0B67008DB502 /* PayRecordTableViewCell.xib in Resources */,
 				C127D18E1E770B300017073E /* MDPCHeaderCollectionReusableView.xib in Resources */,
@@ -2838,6 +2883,7 @@
 				C1FAF4031EEA822D003D6F16 /* XLTabBarViewController.m in Sources */,
 				C1CE3FB01EB84A8600C0D692 /* TAAbstractDotView.m in Sources */,
 				C136D6C61EB060BA0081B19E /* UIView+PYSearchExtension.m in Sources */,
+				C18894491F4A4417004FD861 /* chooseCityModel.m in Sources */,
 				C127D0D61E7708C20017073E /* SDWebImageManager.m in Sources */,
 				C19AC0FC1EBB0BED00842569 /* RCDLiveChatRoomViewController.m in Sources */,
 				C166023E1EA0AACA005FAFC1 /* DBNewLoginViewController.m in Sources */,
@@ -2896,6 +2942,7 @@
 				C127D0BA1E7708C20017073E /* MJRefreshBackFooter.m in Sources */,
 				C127D18D1E770B300017073E /* MDPCHeaderCollectionReusableView.m in Sources */,
 				C127D0BD1E7708C20017073E /* MJRefreshHeader.m in Sources */,
+				C1E6907A1F29868400D3C2DC /* NSString+Hash.m in Sources */,
 				C19AC0F41EBB0BED00842569 /* RCDLiveInputBar.m in Sources */,
 				C127D0D81E7708C20017073E /* UIButton+WebCache.m in Sources */,
 				C197C4EA1EFD02BE005352A1 /* TZProgressView.m in Sources */,
@@ -2969,9 +3016,11 @@
 				C197C4DE1EFD02BE005352A1 /* NSBundle+TZImagePicker.m in Sources */,
 				C127CFA61E7707CF0017073E /* AppDelegate.m in Sources */,
 				C127D09A1E7708C20017073E /* UIImage+Extension.m in Sources */,
+				C1E690791F29868400D3C2DC /* HSSessionModel.m in Sources */,
 				C1CE3FB61EB84A8600C0D692 /* UIView+SDExtension.m in Sources */,
 				C19AC0EE1EBB0BED00842569 /* RCDLiveTipMessageCell.m in Sources */,
 				C127D0C31E7708C20017073E /* MJRefreshBackStateFooter.m in Sources */,
+				C1E690781F29868400D3C2DC /* HSDownloadManager.m in Sources */,
 				C127D0D31E7708C20017073E /* SDWebImageDecoder.m in Sources */,
 				C127D1AA1E770B300017073E /* ThreeShowTableViewCell.m in Sources */,
 				C1D0743F1EE64C3900F6E0A0 /* PlayViewController.m in Sources */,
@@ -3030,6 +3079,7 @@
 				C127D0D51E7708C20017073E /* SDWebImageDownloaderOperation.m in Sources */,
 				C127D1941E770B300017073E /* FollowFansViewController.m in Sources */,
 				C136D6E81EB07B340081B19E /* PrePaidTableViewCell.m in Sources */,
+				C18894441F4A33CE004FD861 /* DBChooseHotelShowView.m in Sources */,
 				C127D1781E770B300017073E /* TJPHotViewController.m in Sources */,
 				C197C48B1EFB665B005352A1 /* MeiPaiHomeModel.m in Sources */,
 				C127D19F1E770B300017073E /* AboutOurViewController.m in Sources */,

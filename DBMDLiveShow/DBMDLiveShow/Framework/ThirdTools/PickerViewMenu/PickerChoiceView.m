@@ -222,7 +222,7 @@
             break;
         case DeteArray:
         {
-            self.selectLb.text = @"选择出生年月";
+            self.selectLb.text = @"选择时间";
             [self creatDate:UIDatePickerModeDate];
         }
             break;

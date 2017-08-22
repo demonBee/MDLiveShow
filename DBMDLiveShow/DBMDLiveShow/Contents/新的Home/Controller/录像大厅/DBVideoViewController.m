@@ -26,6 +26,11 @@
 @property(nonatomic,assign)NSInteger pages;
 @property(nonatomic,strong)NSString*Selectedtype;   //1点赞量 2推荐
 
+
+//这两个筛选 有值的时候 是筛选了   酒店专用
+@property(nonatomic,strong)NSString*city_name;
+@property(nonatomic,strong)NSString*city_id;
+
 //我的视频里面 删除判断
 @property(nonatomic,assign)BOOL isDelete;
 
@@ -85,10 +90,15 @@
     [self addRefresh];
 
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"chooseCity" object:nil];
     
 }
 
-
+-(void)dealloc{
+   
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"chooseCity" object:nil];
+    
+}
 
 
 //-(void)viewWillDisappear:(BOOL)animated{
@@ -253,6 +263,20 @@
 
 
 #pragma mark  --touch
+
+-(void)receiveNotification:(NSNotification*)notification{
+    if (self.typee==videoTypeHotel) {
+        NSDictionary*dict=notification.userInfo;
+        self.city_name=dict[@"city_name"];
+        self.city_id=dict[@"city_id"];
+        
+        [self.collectionView.mj_header beginRefreshing];
+
+    }
+    
+}
+
+
 -(void)clickDelete:(UIButton*)sender{
     if (!sender.selected) {
         sender.selected=YES;
@@ -364,7 +388,13 @@
     
     //这个type 是酒店的录像
     NSString*urlStr=[NSString stringWithFormat:@"%@%@",HTTP_ADDRESS,HTTP_HotelMeiPai];
-    NSDictionary*params=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages,@"type":@"1"};
+    NSDictionary*par=@{@"device_id":[DBTools getUUID],@"token":[UserSession instance].token,@"user_id":[UserSession instance].user_id,@"pagen":pagen,@"pages":pages,@"type":@"1"};
+    NSMutableDictionary*params=[NSMutableDictionary dictionaryWithDictionary:par];
+    if (self.city_id) {
+        [params setObject:self.city_id forKey:@"city_id"];
+    }
+    
+    
     HttpManager*manager=[[HttpManager alloc]init];
     [manager postDataFromNetworkNoHudWithUrl:urlStr parameters:params compliation:^(id data, NSError *error) {
         MyLog(@"%@",data);

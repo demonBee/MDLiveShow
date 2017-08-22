@@ -251,7 +251,7 @@
     }else if (self.videoType==PlayViewTypeMeiPai){
         //美拍的分享
         //        self.meiPaiModel;
-        jiekouType=@"1";
+        jiekouType=@"2";
         video_id=self.meiPaiModel.meipai_id;
     }
 
