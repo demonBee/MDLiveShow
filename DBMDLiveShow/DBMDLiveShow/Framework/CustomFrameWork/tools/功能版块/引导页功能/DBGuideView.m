@@ -32,7 +32,7 @@
 
 
 -(void)addScrollView{
-    NSArray*allDatas=@[@"lb1.jpg",@"lb2.jpg",@"lb3.jpg",@"lb4.jpg"];
+    NSArray*allDatas=@[@"lb1.jpg",@"lb2.jpg",@"lb3.jpg"];
     
     UIScrollView*scrollView=[[UIScrollView alloc]initWithFrame:self.frame];
     scrollView.backgroundColor=[UIColor whiteColor];
